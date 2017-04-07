@@ -7,12 +7,19 @@ import java.io.Serializable;
 import java.util.Optional;
 
 /**
- * @author Pavel Pscheidl <pavel.junior@pscheidl.cz>
+ * @author Pavel Pscheidl
+ *
  */
 @Interceptor
 @Guard
 public class GuardInterceptor implements Serializable {
 
+
+    /**
+     * If there is an exception thrown in the underlying method call, the exception is converted into an empty optional.
+     * @param invocationContext Interceptor's invocation context
+     * @return Value returned by the underlying method call. Empty optional in case of an exception.
+     */
     @AroundInvoke
     public Object guard(InvocationContext invocationContext) {
         try {

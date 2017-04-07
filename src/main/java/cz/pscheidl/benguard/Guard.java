@@ -10,7 +10,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * @author Pavel Pscheidl <pavel.junior@pscheidl.cz>
+ * @author Pavel Pscheidl
  */
 @Inherited
 @InterceptorBinding
