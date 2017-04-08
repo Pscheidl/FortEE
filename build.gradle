@@ -17,7 +17,6 @@ dependencies {
     compileOnly group: 'javax', name: 'javaee-api', version: '7.0'
 }
 
-
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -28,7 +27,8 @@ uploadArchives {
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: hasProperty('ossrhUsername') ? ossrhUsername : System.getenv('ossrhUsername'),
+                        password: hasProperty('ossrhPassword') ? ossrhPassword : System.getenv('ossrhPassword'))
             }
 
             pom.project {
