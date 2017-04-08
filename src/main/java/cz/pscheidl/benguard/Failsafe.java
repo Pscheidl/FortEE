@@ -16,5 +16,5 @@ import static java.lang.annotation.ElementType.TYPE;
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, TYPE})
-public @interface Guard {
+public @interface Failsafe {
 }
