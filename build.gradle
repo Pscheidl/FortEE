@@ -1,5 +1,5 @@
 group 'com.github.pscheidl'
-version '0.2.1-SNAPSHOT'
+version '0.2.1'
 
 buildscript {
     repositories {
@@ -39,8 +39,6 @@ dependencies {
 
     compileOnly group: 'javax', name: 'javaee-api', version: '7.0'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-    compile group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.25'
-
 
 }
 
