@@ -12,13 +12,13 @@ Ben is a Java EE fault-tolerance guard leveraging the Optional pattern. Its powe
 <dependency>
   <groupId>com.github.pscheidl</groupId>
   <artifactId>benguard</artifactId>
-  <version>0.2</version>
+  <version>0.2.1</version>
 </dependency>
 ```
 ## Gradle
 
 ```groovy
-compile group: 'com.github.pscheidl', name: 'benguard', version: '0.2'
+compile group: 'com.github.pscheidl', name: 'benguard', version: '0.2.1'
 ```
 ## Usage
 
@@ -33,6 +33,17 @@ public class ServiceImplementation implements SomeService {
 @Failsafe
 public Optional<String> maybeFail(){
   throw new RuntimeException("Failed on purpose");
+}
+
+}
+```
+### On-fail event observation
+```java
+@Named
+public class ExecutionErrorObserver {
+
+public Optional<String> observe(@Observes ExecutionError executionError){
+  // Do whatever is needed
 }
 
 }
