@@ -2,6 +2,8 @@ package cz.pscheidl.benguard.extension;
 
 import cz.pscheidl.benguard.Failsafe;
 import cz.pscheidl.benguard.FailsafeInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedMethod;
@@ -10,15 +12,13 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * @author Pavel Pscheidl
  */
 public class GuardExtension implements Extension {
-    Logger logger = Logger.getLogger(GuardExtension.class.getName());
+    Logger logger = LoggerFactory.getLogger(GuardExtension.class);
 
     /**
      * Inspects annotated types for usage of @Failsafe interceptor and checks the return types of intercepted methods.
@@ -90,7 +90,7 @@ public class GuardExtension implements Extension {
             badMethodMessageBuilder.append(" in class ");
             badMethodMessageBuilder.append(method.getJavaMember().getDeclaringClass().getCanonicalName());
             badMethodMessageBuilder.append(" does not return Optional<T>.");
-            logger.log(Level.SEVERE, badMethodMessageBuilder.toString());
+            logger.error(badMethodMessageBuilder.toString());
         });
     }
 }

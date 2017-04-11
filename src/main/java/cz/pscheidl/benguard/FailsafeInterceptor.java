@@ -1,13 +1,14 @@
 package cz.pscheidl.benguard;
 
+import org.slf4j.Logger;
+
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Transforms uncatched exceptions into an empty optional.
@@ -19,7 +20,9 @@ import java.util.logging.Logger;
 @Failsafe
 @Priority(1000)
 public class FailsafeInterceptor implements Serializable {
-    private Logger logger = Logger.getLogger(FailsafeInterceptor.class.getName());
+
+    @Inject
+    private Logger logger;
 
     /**
      * If there is an exception thrown in the underlying method call, the exception is converted into an empty Optional.
@@ -34,7 +37,7 @@ public class FailsafeInterceptor implements Serializable {
 
             return returnedObject;
         } catch (Throwable throwable) {
-            logger.log(Level.WARNING, "Failsafe interceptor exception caught.", throwable);
+            logger.warn("Failsafe interceptor exception caught.", throwable);
             return Optional.empty();
         }
     }
