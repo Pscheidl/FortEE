@@ -42,7 +42,7 @@ public Optional<String> maybeFail(){
 @Named
 public class ExecutionErrorObserver {
 
-public Optional<String> observe(@Observes ExecutionError executionError){
+public void observe(@Observes ExecutionError executionError){
   // Do whatever is needed
 }
 
