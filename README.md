@@ -12,13 +12,13 @@ Ben is a Java EE fault-tolerance guard leveraging the Optional pattern. Its powe
 <dependency>
   <groupId>com.github.pscheidl</groupId>
   <artifactId>benguard</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
 </dependency>
 ```
 ## Gradle
 
 ```groovy
-compile group: 'com.github.pscheidl', name: 'benguard', version: '0.2.1'
+compile group: 'com.github.pscheidl', name: 'benguard', version: '0.2.2'
 ```
 ## Usage
 
