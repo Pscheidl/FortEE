@@ -16,6 +16,7 @@ import javax.inject.Named;
 public class LoggerProducer {
 
     @Produces
+    @BenguardLogger
     public Logger produceLogger(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getBean().getBeanClass());
     }

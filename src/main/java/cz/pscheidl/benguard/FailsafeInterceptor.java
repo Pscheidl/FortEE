@@ -1,6 +1,7 @@
 package cz.pscheidl.benguard;
 
 import cz.pscheidl.benguard.event.ExecutionError;
+import cz.pscheidl.benguard.logging.BenguardLogger;
 import org.slf4j.Logger;
 
 import javax.annotation.Priority;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class FailsafeInterceptor implements Serializable {
 
     @Inject
+    @BenguardLogger
     private Logger logger;
 
     @Inject
