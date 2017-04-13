@@ -59,16 +59,16 @@ uploadArchives {
             }
 
             pom.project {
-                name 'BenGuard'
+                name 'FortEE'
                 packaging 'jar'
                 artifactId jar.project.name.toLowerCase()
                 description 'Fault tolerance library focused on Java EE'
-                url 'https://github.com/Pscheidl/BenGuard'
+                url 'https://github.com/Pscheidl/FortEE'
 
                 scm {
-                    connection 'scm:git:git://github.com/Pscheidl/BenGuard.git'
-                    developerConnection 'scm:git:ssh://github.com/Pscheidl/BenGuard.git'
-                    url 'https://github.com/Pscheidl/BenGuard'
+                    connection 'scm:git:git://github.com/Pscheidl/FortEE.git'
+                    developerConnection 'scm:git:ssh://github.com/Pscheidl/FortEE.git'
+                    url 'https://github.com/Pscheidl/FortEE'
                 }
 
                 licenses {
