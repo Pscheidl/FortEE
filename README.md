@@ -8,9 +8,17 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 [![Build Status](https://travis-ci.org/Pscheidl/BenGuard.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
 
 ## Maven
-During the process of transformation of the project, no artifacts are visible.
+```xml
+<dependency>
+    <groupId>com.github.pscheidl</groupId>
+    <artifactId>fortee</artifactId>
+    <version>0.2.2</version>
+</dependency>
+```
 ## Gradle
-During the process of transformation of the project, no artifacts are visible.
+```groovy
+compile 'com.github.pscheidl:fortee:0.2.2'
+```
 
 ## Usage
 
