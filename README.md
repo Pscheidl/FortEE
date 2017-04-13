@@ -8,18 +8,10 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 [![Build Status](https://travis-ci.org/Pscheidl/BenGuard.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
 
 ## Maven
-```xml
-<dependency>
-  <groupId>com.github.pscheidl</groupId>
-  <artifactId>benguard</artifactId>
-  <version>0.2.2</version>
-</dependency>
-```
+During the process of transformation of the project, no artifacts are visible.
 ## Gradle
+During the process of transformation of the project, no artifacts are visible.
 
-```groovy
-compile group: 'com.github.pscheidl', name: 'benguard', version: '0.2.2'
-```
 ## Usage
 
 - Methods annotated with @Failsafe must return Optional<T>. This is checked at startup-time. If this condition is not met, exception is thrown during startup phase with details about which methods failed the test.
