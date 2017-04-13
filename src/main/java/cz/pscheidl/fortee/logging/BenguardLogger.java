@@ -1,4 +1,4 @@
-package cz.pscheidl.benguard.logging;
+package cz.pscheidl.fortee.logging;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Retention;

@@ -1,7 +1,7 @@
-package cz.pscheidl.benguard.extension;
+package cz.pscheidl.fortee.extension;
 
-import cz.pscheidl.benguard.Failsafe;
-import cz.pscheidl.benguard.FailsafeInterceptor;
+import cz.pscheidl.fortee.Failsafe;
+import cz.pscheidl.fortee.FailsafeInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 /**
  * @author Pavel Pscheidl
  */
-public class GuardExtension implements Extension {
-    Logger logger = LoggerFactory.getLogger(GuardExtension.class);
+public class FortExtension implements Extension {
+    Logger logger = LoggerFactory.getLogger(FortExtension.class);
 
     /**
      * Inspects annotated types for usage of @Failsafe interceptor and checks the return types of intercepted methods.

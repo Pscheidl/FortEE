@@ -1,7 +1,7 @@
-package cz.pscheidl.benguard;
+package cz.pscheidl.fortee;
 
-import cz.pscheidl.benguard.event.ExecutionError;
-import cz.pscheidl.benguard.logging.BenguardLogger;
+import cz.pscheidl.fortee.event.ExecutionError;
+import cz.pscheidl.fortee.logging.BenguardLogger;
 import org.slf4j.Logger;
 
 import javax.annotation.Priority;

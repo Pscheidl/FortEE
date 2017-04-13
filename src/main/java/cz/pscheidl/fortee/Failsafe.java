@@ -1,4 +1,4 @@
-package cz.pscheidl.benguard;
+package cz.pscheidl.fortee;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Inherited;

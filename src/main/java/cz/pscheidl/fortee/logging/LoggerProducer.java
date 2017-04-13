@@ -1,4 +1,4 @@
-package cz.pscheidl.benguard.logging;
+package cz.pscheidl.fortee.logging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
