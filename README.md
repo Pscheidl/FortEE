@@ -1,11 +1,11 @@
-# BenGuard
-Ben is a Java EE fault-tolerance guard leveraging the Optional pattern. Its power lies in its simplicity. On methods returning Optional<T>, a @Failsafe annotation can be placed. Any uncaught exceptional states are then logged and converted into an Optional.empty(). Synchronous or asynchronous invocation is not enforced.
+# FortEE
+FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its power lies in its simplicity. On methods returning Optional<T>, a @Failsafe annotation can be placed. Any uncaught exceptional states are then logged and converted into an Optional.empty(). Synchronous or asynchronous invocation is not enforced.
 
 - Non-intrusive
 - Simple and fast
 - Startup-time check
 
-[![Build Status](https://travis-ci.org/Pscheidl/BenGuard.svg?branch=master)](https://travis-ci.org/Pscheidl/BenGuard)
+[![Build Status](https://travis-ci.org/Pscheidl/BenGuard.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
 
 ## Maven
 ```xml
