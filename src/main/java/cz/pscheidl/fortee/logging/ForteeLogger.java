@@ -13,5 +13,5 @@ import static java.lang.annotation.ElementType.*;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
-public @interface BenguardLogger {
+public @interface ForteeLogger {
 }

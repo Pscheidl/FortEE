@@ -1,7 +1,7 @@
 package cz.pscheidl.fortee;
 
 import cz.pscheidl.fortee.event.ExecutionError;
-import cz.pscheidl.fortee.logging.BenguardLogger;
+import cz.pscheidl.fortee.logging.ForteeLogger;
 import org.slf4j.Logger;
 
 import javax.annotation.Priority;
@@ -26,7 +26,7 @@ import java.util.Optional;
 public class FailsafeInterceptor implements Serializable {
 
     @Inject
-    @BenguardLogger
+    @ForteeLogger
     private Logger logger;
 
     @Inject
