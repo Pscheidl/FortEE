@@ -25,8 +25,7 @@ import java.util.Optional;
 @Priority(1000)
 public class FailsafeInterceptor implements Serializable {
 
-    @Inject
-    @ForteeLogger
+
     private Logger logger;
 
     @Inject
@@ -45,7 +44,6 @@ public class FailsafeInterceptor implements Serializable {
             return returnedObject;
         } catch (Throwable throwable) {
             throwExecutionErrorEvent(invocationContext, throwable);
-            logger.warn("Failsafe interceptor exception caught.", throwable);
             return Optional.empty();
         }
     }
