@@ -5,7 +5,7 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 - Simple and fast
 - Startup-time check
 
-[![Build Status](https://travis-ci.org/Pscheidl/BenGuard.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
+[![Build Status](https://travis-ci.org/Pscheidl/FortEE.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
 
 ## Maven
 ```xml
