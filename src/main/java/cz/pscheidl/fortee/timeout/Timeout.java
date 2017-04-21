@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * Qualifier for an timeout-enabled ExecutorService injection.
+ *
  * @author Pavel Pscheidl
  */
 @Qualifier
