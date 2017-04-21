@@ -12,15 +12,19 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.2.2</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:0.2.2'
+compile 'com.github.pscheidl:fortee:0.3.0'
 ```
 
 ## Usage
+
+## Failsafe
+
+Basic fault tolerance mechanism leveraging `java.util.Optional<T>`. The underlying method either did deliver or did not. Nothing in between.
 
 - Methods annotated with @Failsafe must return Optional<T>. This is checked at startup-time. If this condition is not met, exception is thrown during startup phase with details about which methods failed the test.
 - Beans annotated with @Failsafe must enforce this Optional<T> return type on all declared methods.
@@ -37,7 +41,7 @@ public Optional<String> maybeFail(){
 
 }
 ```
-### On-fail event observation
+#### On-fail event observation
 ```java
 @Named
 public class ExecutionErrorObserver {
@@ -48,3 +52,35 @@ public void observe(@Observes ExecutionError executionError){
 
 }
 ```
+
+## Timeout
+
+Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Number of threads created is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout.
+
+```java
+public class TestEndpoint {
+
+    @Inject
+    private SomeService someService;
+
+    //100 Threads in a pool. Each new task has a timeout of 10 milliseconds.
+    @Inject
+    @Timeout(threads = 100, millis = 10)
+    private ExecutorService executor;
+
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response test() throws ExecutionException, InterruptedException {
+        Future<Optional<String>> submit = executor.submit(someService::doSomething);
+        try {
+            Optional<String> s = submit.get();
+            return Response.ok(s).build();
+        } catch (CancellationException e) {
+            return Response.noContent().build();
+        }
+    }
+}
+```
+
+
