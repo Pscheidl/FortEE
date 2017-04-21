@@ -40,7 +40,6 @@ public class ThreadTimer {
 
     private void start() {
         checkThreadRunning = true;
-        System.out.println("IN queue: " + jobs.size());
         while (checkThreadRunning) {
             jobsLock.readLock().lock();
             if (jobs.isEmpty()) {

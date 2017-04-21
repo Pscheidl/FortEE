@@ -87,12 +87,7 @@ public class TimeoutPoolTest {
                 .filter(Future::isCancelled)
                 .count();
 
-        long doneCount = submittedTasks.stream()
-                .filter(Future::isDone)
-                .count();
-
         Assert.assertEquals(1000, count);
-        Assert.assertEquals(0, doneCount);
     }
 
     @Test
@@ -100,10 +95,7 @@ public class TimeoutPoolTest {
         List<Future> submittedTasks = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             Future<?> submit = executorService.submit(() -> {
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                }
+
             });
             submittedTasks.add(submit);
         }
@@ -114,6 +106,11 @@ public class TimeoutPoolTest {
                 .filter(Future::isDone)
                 .count();
 
+        long cancelled = submittedTasks.stream()
+                .filter(Future::isCancelled)
+                .count();
+
         Assert.assertEquals(1000, count);
+        Assert.assertEquals(0, cancelled);
     }
 }

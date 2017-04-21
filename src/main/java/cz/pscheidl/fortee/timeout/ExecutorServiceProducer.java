@@ -22,7 +22,7 @@ public class ExecutorServiceProducer {
     public ExecutorService produceExecutorService(InjectionPoint injectionPoint) {
         Timeout annotation = injectionPoint.getAnnotated().getAnnotation(Timeout.class);
 
-        ExecutorService delegate = Executors.newFixedThreadPool(100);
+        ExecutorService delegate = Executors.newFixedThreadPool(1000);
         return new TimeoutExecutorService(delegate, annotation.millis());
     }
 
