@@ -57,7 +57,11 @@ public void observe(@Observes ExecutionError executionError){
 
 ## Timeout
 
-Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Number of threads created is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout.
+Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Number of threads created as a part of ExecutorService is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout.
+
+- Injects only ExecutorService with `@Timeout` qualifier used. Leaves room for custom ExecutionService producers and does not collide with @Default.
+
+Usage of `@Timeout` is completely independent of using `Failsafe`. In the example below, the `SomeService` may be guarded by `@Failsafe`.
 
 ```java
 public class Example {
@@ -75,6 +79,7 @@ public class Example {
     @Produces({MediaType.APPLICATION_JSON})
     public Response test() throws ExecutionException, InterruptedException {
         Future<Optional<String>> submit = executor.submit(someService::doSomething);
+        
         try {
             Optional<String> s = submit.get();
             return Response.ok(s).build();
@@ -85,4 +90,6 @@ public class Example {
 }
 ```
 
+## Current plans
+- Timeout is now only absolute. This is not a good solution for real-world, where latency of services differs greatly in time. A little bit of cheap machine learning and voilá, no restarts and manual observation needed. Only confidence interval is required ! Absolute timeout will still be usable as a maximum cap per-request.
 
