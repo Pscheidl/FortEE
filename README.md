@@ -5,6 +5,8 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 - Simple and fast
 - Startup-time check
 
+**The library is in pre-release state. Until version 1.0, contracts may change.**
+
 [![Build Status](https://travis-ci.org/Pscheidl/FortEE.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
 
 ## Maven
@@ -58,7 +60,7 @@ public void observe(@Observes ExecutionError executionError){
 Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Number of threads created is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout.
 
 ```java
-public class TestEndpoint {
+public class Example {
 
     @Inject
     private SomeService someService;
