@@ -1,10 +1,5 @@
 package cz.pscheidl.fortee.timeout;
 
-import javax.decorator.Decorator;
-import javax.decorator.Delegate;
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.*;
@@ -14,13 +9,13 @@ import java.util.concurrent.*;
  */
 public class TimeoutExecutorService implements ExecutorService {
 
-    private ThreadTimer threadTimer;
+    private TaskTimeoutWatcher taskTimeoutWatcher;
     private int timeout;
 
     public TimeoutExecutorService(ExecutorService delegate, int timeout) {
         this.delegate = delegate;
         this.timeout = timeout;
-        threadTimer = new ThreadTimer(timeout);
+        taskTimeoutWatcher = new TaskTimeoutWatcher(timeout);
     }
 
     private ExecutorService delegate;
@@ -53,7 +48,7 @@ public class TimeoutExecutorService implements ExecutorService {
     @Override
     public <T> Future<T> submit(Callable<T> task) {
         Future<T> future = delegate.submit(task);
-        threadTimer.watchForTimeout(future);
+        taskTimeoutWatcher.watchForTimeout(future);
         return future;
     }
 
@@ -61,14 +56,14 @@ public class TimeoutExecutorService implements ExecutorService {
     public <T> Future<T> submit(Runnable task, T result)
     {
         Future<T> future = delegate.submit(task, result);
-        threadTimer.watchForTimeout( future);
+        taskTimeoutWatcher.watchForTimeout( future);
         return future;
     }
 
     @Override
     public Future<?> submit(Runnable task) {
         Future<?> future = delegate.submit(task);
-        threadTimer.watchForTimeout(future);
+        taskTimeoutWatcher.watchForTimeout(future);
         return future;
     }
 

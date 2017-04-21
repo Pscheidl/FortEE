@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * @author Pavel Pscheidl
  */
-public class ThreadTimer {
+public class TaskTimeoutWatcher {
 
     private final int idleTimeout;
     private final int timeout;
@@ -19,11 +19,11 @@ public class ThreadTimer {
     private volatile boolean checkThreadRunning;
 
 
-    public ThreadTimer(int timeout) {
+    public TaskTimeoutWatcher(int timeout) {
         jobs = new ArrayDeque<>(200);
         jobsLock = new ReentrantReadWriteLock();
         this.timeout = timeout;
-        this.idleTimeout = Math.max(timeout - 1, 0);
+        this.idleTimeout = Math.max(timeout - 1, 1);
 
         checkThread = new Thread(this::start);
         checkThread.start();

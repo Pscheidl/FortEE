@@ -17,11 +17,14 @@ import static java.lang.annotation.ElementType.*;
 public @interface Timeout {
 
     /**
-     * Time interval before the underlying tasks are timed out. In milliseconds
+     * @return Time interval before the underlying tasks are timed out. In milliseconds
      */
     @Nonbinding
     public int millis() default 1000;
 
+    /**
+     * @return Number of threads in pool
+     */
     @Nonbinding
     public int threads() default 100;
 }
