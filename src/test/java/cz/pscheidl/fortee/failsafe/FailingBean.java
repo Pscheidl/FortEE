@@ -1,4 +1,6 @@
-package cz.pscheidl.fortee;
+package cz.pscheidl.fortee.failsafe;
+
+import cz.pscheidl.fortee.Failsafe;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;

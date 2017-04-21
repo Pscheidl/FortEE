@@ -1,5 +1,5 @@
 group 'com.github.pscheidl'
-version '0.2.2'
+version '0.3.0'
 
 buildscript {
     repositories {
@@ -113,20 +113,20 @@ artifacts {
 }
 
 test.doFirst {
-    File wildflyzip = new File(buildDir, 'wildfly-10.1.0.Final.zip')
-    File wildflyDirectory = new File(buildDir, 'wildfly-10.1.0.Final');
+    File wildflyzip = new File('containers', 'wildfly-10.1.0.Final.zip')
+    File wildflyDirectory = new File('containers', 'wildfly-10.1.0.Final');
 
-    if (!wildflyzip.exists() || !wildflyDirectory.exists()) {
+    if (!wildflyzip.exists()) {
         download {
             src 'http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final.zip'
-            dest buildDir
+            dest wildflyzip
         }
 
     }
-    if (wildflyzip.exists() && !wildflyDirectory.exists()) {
+    if (!wildflyDirectory.exists()) {
         copy {
             from zipTree(wildflyzip)
-            into buildDir
+            into 'containers'
         }
     }
 }

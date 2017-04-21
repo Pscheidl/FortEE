@@ -9,6 +9,7 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
+import javax.interceptor.Interceptors;
 import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ import java.util.Optional;
  */
 @Interceptor
 @Failsafe
-@Priority(1000)
+@Priority(Interceptor.Priority.LIBRARY_BEFORE)
 public class FailsafeInterceptor implements Serializable {
 
 
