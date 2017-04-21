@@ -7,6 +7,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
+ * Watches Future tasks for timeout.
+ *
  * @author Pavel Pscheidl
  */
 public class TaskTimeoutWatcher {
@@ -25,20 +27,28 @@ public class TaskTimeoutWatcher {
         this.timeout = timeout;
         this.idleTimeout = Math.max(timeout - 1, 1);
 
-        checkThread = new Thread(this::start);
+        checkThread = new Thread(this::watch);
         checkThread.start();
     }
 
-    public void watchForTimeout(Future watchedThread) {
+    /**
+     * Adds new Future to the queue of tasks waiting for timeout check.
+     * If the execution time exceeds watcher's timeout, it is cancelled.
+     *
+     * @param watchedFuture Future to be watched for timeout
+     */
+    public void watchForTimeout(Future watchedFuture) {
         long threadFinishTime = System.currentTimeMillis() + timeout;
-        Job job = new Job(threadFinishTime, watchedThread);
+        Job job = new Job(threadFinishTime, watchedFuture);
         jobsLock.writeLock().lock();
         jobs.addLast(job);
         jobsLock.writeLock().unlock();
     }
 
-
-    private void start() {
+    /**
+     * Iterates the queue of tasks to be checked for timeout
+     */
+    private void watch() {
         checkThreadRunning = true;
         while (checkThreadRunning) {
             jobsLock.readLock().lock();
