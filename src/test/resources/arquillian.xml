@@ -5,7 +5,7 @@
 
     <container qualifier="wildfly10" default="true">
         <configuration>
-            <property name="jbossHome">build/wildfly-10.1.0.Final/</property>
+            <property name="jbossHome">containers/wildfly-10.1.0.Final/</property>
         </configuration>
     </container>
 
