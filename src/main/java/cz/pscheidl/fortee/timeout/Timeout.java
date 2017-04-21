@@ -21,4 +21,7 @@ public @interface Timeout {
      */
     @Nonbinding
     public int millis() default 1000;
+
+    @Nonbinding
+    public int threads() default 100;
 }

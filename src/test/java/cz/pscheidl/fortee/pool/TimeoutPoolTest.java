@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -23,7 +24,7 @@ import java.util.concurrent.Future;
 public class TimeoutPoolTest {
 
     @Inject
-    @Timeout(millis = 10)
+    @Timeout(millis = 10, threads = 1000)
     private ExecutorService executorService;
 
     @Deployment
@@ -68,7 +69,7 @@ public class TimeoutPoolTest {
     }
 
     @Test
-    public void testManyCancelled() throws InterruptedException {
+    public void testManyCancelled() throws InterruptedException, ExecutionException {
         List<Future> submittedTasks = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             Future<?> submit = executorService.submit(() -> {
@@ -80,7 +81,6 @@ public class TimeoutPoolTest {
             });
             submittedTasks.add(submit);
         }
-
         Thread.sleep(11);
 
         long count = submittedTasks.stream()
@@ -100,7 +100,7 @@ public class TimeoutPoolTest {
             submittedTasks.add(submit);
         }
 
-        Thread.sleep(10);
+        Thread.sleep(11);
 
         long count = submittedTasks.stream()
                 .filter(Future::isDone)

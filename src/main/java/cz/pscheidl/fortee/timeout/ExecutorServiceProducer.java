@@ -20,10 +20,10 @@ public class ExecutorServiceProducer {
     @Produces
     @Timeout
     public ExecutorService produceExecutorService(InjectionPoint injectionPoint) {
-        Timeout annotation = injectionPoint.getAnnotated().getAnnotation(Timeout.class);
+        Timeout timeoutAnnotation = injectionPoint.getAnnotated().getAnnotation(Timeout.class);
 
-        ExecutorService delegate = Executors.newFixedThreadPool(1000);
-        return new TimeoutExecutorService(delegate, annotation.millis());
+        ExecutorService delegate = Executors.newFixedThreadPool(timeoutAnnotation.threads());
+        return new TimeoutExecutorService(delegate, timeoutAnnotation.millis());
     }
 
 
