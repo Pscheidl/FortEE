@@ -4,6 +4,7 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 - Non-intrusive
 - Simple and fast
 - Startup-time check
+- Tiny in size
 
 **The library is in pre-release state. Until version 1.0, contracts may change.**
 
@@ -14,15 +15,16 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:0.3.1'
+compile 'com.github.pscheidl:fortee:0.3.2'
 ```
 **Release notes**
-Compatibility with Glassfish/Payara was fixed.
+
+Full implementation of ExecutorService.
 
 ## Usage
 
