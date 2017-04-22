@@ -2,7 +2,9 @@ package cz.pscheidl.fortee.timeout;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Pavel Pscheidl
@@ -10,6 +12,7 @@ import java.util.concurrent.*;
 public class TimeoutExecutorService implements ExecutorService {
 
     private TaskTimeoutWatcher taskTimeoutWatcher;
+    private ExecutorService delegate;
     private int timeout;
 
     public TimeoutExecutorService(ExecutorService delegate, int timeout) {
@@ -18,15 +21,15 @@ public class TimeoutExecutorService implements ExecutorService {
         taskTimeoutWatcher = new TaskTimeoutWatcher(timeout);
     }
 
-    private ExecutorService delegate;
-
     @Override
     public void shutdown() {
         delegate.shutdown();
+        taskTimeoutWatcher.stop();
     }
 
     @Override
     public List<Runnable> shutdownNow() {
+        taskTimeoutWatcher.stop();
         return delegate.shutdownNow();
     }
 
@@ -53,10 +56,9 @@ public class TimeoutExecutorService implements ExecutorService {
     }
 
     @Override
-    public <T> Future<T> submit(Runnable task, T result)
-    {
+    public <T> Future<T> submit(Runnable task, T result) {
         Future<T> future = delegate.submit(task, result);
-        taskTimeoutWatcher.watchForTimeout( future);
+        taskTimeoutWatcher.watchForTimeout(future);
         return future;
     }
 
@@ -69,26 +71,58 @@ public class TimeoutExecutorService implements ExecutorService {
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        return delegate.invokeAll(tasks);
+        return tasks.stream()
+                .map(this::submit)
+                .collect(Collectors.toList());
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException {
-        return invokeAll(tasks, timeout, unit);
+        return tasks.stream()
+                .map(this::submit)
+                .collect(Collectors.toList());
     }
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
-        return delegate.invokeAny(tasks);
+        List<Future<T>> futures = tasks.stream()
+                .map(this::submit)
+                .collect(Collectors.toList());
+
+        Thread.sleep(timeout);
+
+        Optional<Future<T>> anyCompletedFuture = futures.stream()
+                .filter(future -> !future.isCancelled())
+                .findAny();
+
+        if (!anyCompletedFuture.isPresent()) {
+            throw new ExecutionException("No tasks invoked successfully.", null);
+        }
+
+        return anyCompletedFuture.get().get();
     }
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate.invokeAny(tasks, timeout, unit);
+        List<Future<T>> futures = tasks.stream()
+                .map(this::submit)
+                .collect(Collectors.toList());
+
+        unit.sleep(timeout);
+
+        Optional<Future<T>> anyCompletedFuture = futures.stream()
+                .filter(future -> !future.isCancelled())
+                .findAny();
+
+        if (!anyCompletedFuture.isPresent()) {
+            throw new ExecutionException("No tasks invoked successfully.", null);
+        }
+
+        return anyCompletedFuture.get().get();
     }
 
     @Override
     public void execute(Runnable command) {
-        delegate.execute(command);
+        submit(command);
     }
 }
