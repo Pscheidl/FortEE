@@ -71,16 +71,16 @@ public class TimeoutExecutorService implements ExecutorService {
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        List<Future<T>> futures = delegate.invokeAll(tasks);
-        futures.forEach(taskTimeoutWatcher::watchForTimeout);
-        return futures;
+        return tasks.stream()
+                .map(this::submit)
+                .collect(Collectors.toList());
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException {
-        List<Future<T>> futures = invokeAll(tasks, timeout, unit);
-        futures.forEach(taskTimeoutWatcher::watchForTimeout);
-        return futures;
+        return tasks.stream()
+                .map(this::submit)
+                .collect(Collectors.toList());
     }
 
     @Override

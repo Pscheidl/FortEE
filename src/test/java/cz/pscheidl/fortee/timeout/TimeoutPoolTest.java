@@ -1,7 +1,5 @@
-package cz.pscheidl.fortee.pool;
+package cz.pscheidl.fortee.timeout;
 
-import cz.pscheidl.fortee.timeout.Timeout;
-import cz.pscheidl.fortee.timeout.TimeoutExecutorService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -13,9 +11,8 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
+import java.util.Optional;
+import java.util.concurrent.*;
 
 /**
  * @author Pavel Pscheidl
@@ -112,5 +109,82 @@ public class TimeoutPoolTest {
 
         Assert.assertEquals(1000, count);
         Assert.assertEquals(0, cancelled);
+    }
+
+    @Test
+    public void testInvokeAllTimeout() throws InterruptedException {
+        List<Callable<Optional<String>>> callables = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            callables.add(() -> {
+                Thread.sleep(1000);
+                return Optional.empty();
+            });
+        }
+        List<Future<Optional<String>>> futures = executorService.invokeAll(callables);
+
+        Assert.assertEquals(callables.size(), futures.size());
+
+        Thread.sleep(11);
+        long cancelledCount = futures.stream()
+                .filter(Future::isCancelled)
+                .count();
+        Assert.assertEquals(callables.size(), cancelledCount);
+    }
+
+    @Test
+    public void testInvokeAll() throws InterruptedException {
+        List<Callable<Optional<String>>> callables = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            callables.add(() -> {
+                return Optional.empty();
+            });
+        }
+        List<Future<Optional<String>>> futures = executorService.invokeAll(callables);
+
+        Assert.assertEquals(callables.size(), futures.size());
+
+        Thread.sleep(11);
+        long cancelledCount = futures.stream()
+                .filter(Future::isCancelled)
+                .count();
+        Assert.assertEquals(0, cancelledCount);
+    }
+
+    @Test
+    public void testInvokeAny() throws InterruptedException, ExecutionException {
+        List<Callable<Optional<String>>> callables = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            callables.add(() -> {
+                return Optional.empty();
+            });
+        }
+        Optional<String> s = executorService.invokeAny(callables);
+
+        Thread.sleep(11);
+        Assert.assertNotNull(s);
+        Assert.assertFalse(s.isPresent());
+    }
+
+    @Test(expected = CancellationException.class)
+    public void testInvokeAnyTimeout() throws ExecutionException, InterruptedException {
+        List<Callable<Optional<String>>> callables = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            callables.add(() -> {
+                Thread.sleep(15);
+                return Optional.empty();
+            });
+        }
+        Optional<String> s = executorService.invokeAny(callables);
+    }
+
+    @Test(expected = ExecutionException.class)
+    public void testInvokeAnyException() throws ExecutionException, InterruptedException {
+        List<Callable<Optional<String>>> callables = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            callables.add(() -> {
+                throw new RuntimeException();
+            });
+        }
+        Optional<String> s = executorService.invokeAny(callables);
     }
 }
