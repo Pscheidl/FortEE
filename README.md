@@ -14,13 +14,15 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:0.3.0'
+compile 'com.github.pscheidl:fortee:0.3.1'
 ```
+**Release notes**
+Compatibility with Glassfish/Payara was fixed.
 
 ## Usage
 
@@ -90,6 +92,5 @@ public class Example {
 }
 ```
 
-## Current plans / known issues
+## Current plans
 - Timeout is now only absolute. This is not a good solution for real-world, where latency of services differs greatly in time. A little bit of cheap machine learning and voilá, no restarts and manual observation needed. Only confidence interval is required ! Absolute timeout will still be usable as a maximum cap per-request.
-- Workaround for `@Failsafe` interceptor not being activated in Glassfish-based AS. https://java.net/jira/browse/GLASSFISH-21718 / https://github.com/payara/Payara/issues/1532.
