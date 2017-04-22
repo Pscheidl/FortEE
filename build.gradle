@@ -1,5 +1,5 @@
 group 'com.github.pscheidl'
-version '0.3.0'
+version '0.3.1-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -53,13 +53,13 @@ uploadArchives {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: hasProperty('ossrhUsername') ? ossrhUsername : System.getenv('ossrhUsername'),
-                        password: hasProperty('ossrhPassword') ? ossrhPassword : System.getenv('ossrhPassword'))
+                authentication(userName: 'Pscheidl',
+                        password: 'hradKasperk')
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: hasProperty('ossrhUsername') ? ossrhUsername : System.getenv('ossrhUsername'),
-                        password: hasProperty('ossrhPassword') ? ossrhPassword : System.getenv('ossrhPassword'))
+                authentication(userName: 'Pscheidl',
+                        password: 'hradKasperk')
             }
 
             pom.project {

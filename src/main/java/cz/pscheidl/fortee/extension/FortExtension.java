@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class FortExtension implements Extension {
     Logger logger = LoggerFactory.getLogger(FortExtension.class);
 
+
     /**
      * Inspects annotated types for usage of @Failsafe interceptor and checks the return types of intercepted methods.
      *
