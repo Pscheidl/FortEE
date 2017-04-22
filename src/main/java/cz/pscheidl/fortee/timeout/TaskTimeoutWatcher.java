@@ -88,11 +88,15 @@ public class TaskTimeoutWatcher {
 
     }
 
-    @Override
-    protected void finalize() throws Throwable {
+    public void stop() {
         checkThreadRunning = false;
         if (!checkThread.isInterrupted()) {
             checkThread.interrupt();
         }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        stop();
     }
 }
