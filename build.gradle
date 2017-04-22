@@ -1,5 +1,5 @@
 group 'com.github.pscheidl'
-version '0.3.1-SNAPSHOT'
+version '0.3.1'
 
 buildscript {
     repositories {
