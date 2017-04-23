@@ -2,9 +2,7 @@ package cz.pscheidl.fortee.timeout;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.*;
-import java.util.stream.Collectors;
 
 /**
  * @author Pavel Pscheidl
@@ -71,54 +69,26 @@ public class TimeoutExecutorService implements ExecutorService {
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        return tasks.stream()
-                .map(this::submit)
-                .collect(Collectors.toList());
+        return invokeAll(tasks, timeout, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException {
-        return tasks.stream()
-                .map(this::submit)
-                .collect(Collectors.toList());
+        return delegate.invokeAll(tasks, timeout, unit);
     }
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
-        List<Future<T>> futures = tasks.stream()
-                .map(this::submit)
-                .collect(Collectors.toList());
-
-        Thread.sleep(timeout);
-
-        Optional<Future<T>> anyCompletedFuture = futures.stream()
-                .filter(future -> !future.isCancelled())
-                .findAny();
-
-        if (!anyCompletedFuture.isPresent()) {
-            throw new ExecutionException("No tasks invoked successfully.", null);
+        try {
+            return delegate.invokeAny(tasks, timeout, TimeUnit.MILLISECONDS);
+        } catch (TimeoutException e) {
+            throw new ExecutionException(e);
         }
-
-        return anyCompletedFuture.get().get();
     }
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        List<Future<T>> futures = tasks.stream()
-                .map(this::submit)
-                .collect(Collectors.toList());
-
-        unit.sleep(timeout);
-
-        Optional<Future<T>> anyCompletedFuture = futures.stream()
-                .filter(future -> !future.isCancelled())
-                .findAny();
-
-        if (!anyCompletedFuture.isPresent()) {
-            throw new ExecutionException("No tasks invoked successfully.", null);
-        }
-
-        return anyCompletedFuture.get().get();
+        return delegate.invokeAny(tasks, timeout, unit);
     }
 
     @Override

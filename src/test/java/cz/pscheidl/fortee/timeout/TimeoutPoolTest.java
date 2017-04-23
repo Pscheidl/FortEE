@@ -99,36 +99,36 @@ public class TimeoutPoolTest {
 
         Thread.sleep(11);
 
-        long count = submittedTasks.stream()
+        long doneFutures = submittedTasks.stream()
                 .filter(Future::isDone)
                 .count();
 
-        long cancelled = submittedTasks.stream()
+        long cancelledFutures = submittedTasks.stream()
                 .filter(Future::isCancelled)
                 .count();
 
-        Assert.assertEquals(1000, count);
-        Assert.assertEquals(0, cancelled);
+        Assert.assertEquals(1000, doneFutures);
+        Assert.assertEquals(0, cancelledFutures);
     }
 
-    @Test
-    public void testInvokeAllTimeout() throws InterruptedException {
+    @Test(expected = CancellationException.class)
+    public void testInvokeAllTimeout() throws InterruptedException, ExecutionException {
         List<Callable<Optional<String>>> callables = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             callables.add(() -> {
-                Thread.sleep(1000);
+                Thread.sleep(11);
                 return Optional.empty();
             });
         }
-        List<Future<Optional<String>>> futures = executorService.invokeAll(callables);
+        List<Future<Optional<String>>> futures = executorService.invokeAll(callables, 10, TimeUnit.MILLISECONDS);
 
         Assert.assertEquals(callables.size(), futures.size());
 
-        Thread.sleep(11);
         long cancelledCount = futures.stream()
                 .filter(Future::isCancelled)
                 .count();
         Assert.assertEquals(callables.size(), cancelledCount);
+        futures.get(0).get();
     }
 
     @Test
@@ -143,7 +143,6 @@ public class TimeoutPoolTest {
 
         Assert.assertEquals(callables.size(), futures.size());
 
-        Thread.sleep(11);
         long cancelledCount = futures.stream()
                 .filter(Future::isCancelled)
                 .count();
@@ -165,17 +164,6 @@ public class TimeoutPoolTest {
         Assert.assertFalse(s.isPresent());
     }
 
-    @Test(expected = CancellationException.class)
-    public void testInvokeAnyTimeout() throws ExecutionException, InterruptedException {
-        List<Callable<Optional<String>>> callables = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            callables.add(() -> {
-                Thread.sleep(15);
-                return Optional.empty();
-            });
-        }
-        Optional<String> s = executorService.invokeAny(callables);
-    }
 
     @Test(expected = ExecutionException.class)
     public void testInvokeAnyException() throws ExecutionException, InterruptedException {
