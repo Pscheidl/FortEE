@@ -15,16 +15,16 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:0.3.2'
+compile 'com.github.pscheidl:fortee:0.3.3'
 ```
 **Release notes**
-
-Full implementation of ExecutorService.
+- Released on 23rd of April 2017, 7:40 AM CET.
+- ExecutorService invokeAll() and invokeAny() properly block.
 
 ## Usage
 
@@ -61,7 +61,7 @@ public void observe(@Observes ExecutionError executionError){
 
 ## Timeout
 
-Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Number of threads created as a part of ExecutorService is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout.
+Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Unlike other solutions out there, default number of threads created as a part of ExecutorService is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout. Temporarily, more threads may be created when `invokeAny()` and `invokeAll()` methods are used.
 
 - Injects only ExecutorService with `@Timeout` qualifier used. Leaves room for custom ExecutionService producers and does not collide with @Default.
 
