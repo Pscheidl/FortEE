@@ -1,11 +1,9 @@
 package cz.pscheidl.fortee.failsafe;
 
 import cz.pscheidl.fortee.Failsafe;
-
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Default;
-import javax.inject.Named;
 import java.util.Optional;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
 /**
  * @author Pavel Pscheidl

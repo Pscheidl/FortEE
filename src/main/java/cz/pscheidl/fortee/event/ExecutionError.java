@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
  * @author Pavel Pscheidl
  */
 public class ExecutionError {
+
     private Method calledMethod;
     private Throwable throwable;
     private LocalDateTime failTime;

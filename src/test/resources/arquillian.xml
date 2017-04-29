@@ -5,9 +5,8 @@
 
     <container qualifier="wildfly10" default="true">
         <configuration>
-            <property name="jbossHome">containers/wildfly-10.1.0.Final/</property>
+            <property name="jbossHome">${jbossHome:target/wildfly-8.2.1.Final}</property>
         </configuration>
     </container>
-
 
 </arquillian>

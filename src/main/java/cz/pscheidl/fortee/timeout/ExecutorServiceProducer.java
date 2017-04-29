@@ -1,14 +1,11 @@
 package cz.pscheidl.fortee.timeout;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Named;
-import java.lang.annotation.Annotation;
-import java.sql.Time;
-import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * @author Pavel Pscheidl
@@ -25,6 +22,5 @@ public class ExecutorServiceProducer {
         ExecutorService delegate = Executors.newFixedThreadPool(timeoutAnnotation.threads());
         return new TimeoutExecutorService(delegate, timeoutAnnotation.millis());
     }
-
 
 }

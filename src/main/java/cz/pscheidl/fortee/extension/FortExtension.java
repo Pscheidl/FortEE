@@ -2,26 +2,27 @@ package cz.pscheidl.fortee.extension;
 
 import cz.pscheidl.fortee.Failsafe;
 import cz.pscheidl.fortee.FailsafeInterceptor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Pavel Pscheidl
  */
 public class FortExtension implements Extension {
+
     Logger logger = LoggerFactory.getLogger(FortExtension.class);
 
     /**
-     * Inspects annotated types for usage of @Failsafe interceptor and checks the return types of intercepted methods.
+     * Inspects annotated types for usage of @Failsafe interceptor and checks
+     * the return types of intercepted methods.
      *
      * @param pat Annotated type to be processed
      * @param <X> Generic type of AnnotatedType
@@ -49,11 +50,13 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * Searches all methods declared in the underlying class for not having Optional<T> return type.
+     * Searches all methods declared in the underlying class for not having
+     * Optional<T> return type.
      *
      * @param annotatedType Class annotated with @Failsafe annotation
-     * @param <X>           Generic type of AnnotatedType
-     * @return Potentially empty list of public methods not returning Optional<T>.
+     * @param <X> Generic type of AnnotatedType
+     * @return Potentially empty list of public methods not returning
+     * Optional<T>.
      */
     private <X> List<AnnotatedMethod<? super X>> findMethodsWithoutOptionalReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
@@ -63,11 +66,13 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * Searches methods in the underlying class annotated with @Failsafe annotation for not returning Optional<T>.
+     * Searches methods in the underlying class annotated with @Failsafe
+     * annotation for not returning Optional<T>.
      *
      * @param annotatedType Class annotated with @Failsafe annotation
-     * @param <X>           Generic type of AnnotatedType
-     * @return Potentially empty list of public methods not returning Optional<T>.
+     * @param <X> Generic type of AnnotatedType
+     * @return Potentially empty list of public methods not returning
+     * Optional<T>.
      */
     private <X> List<AnnotatedMethod<? super X>> findGuardedMethodsWithBadReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
@@ -78,10 +83,11 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * Logs names of methods and their declaring classes without proper return type
+     * Logs names of methods and their declaring classes without proper return
+     * type
      *
      * @param badMethods List of bad methods to print
-     * @param <X>        Generic type of AnnotatedType
+     * @param <X> Generic type of AnnotatedType
      */
     private <X> void logBadMethods(List<AnnotatedMethod<? super X>> badMethods) {
         badMethods.forEach(method -> {

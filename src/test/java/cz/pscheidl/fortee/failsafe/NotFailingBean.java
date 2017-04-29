@@ -1,7 +1,7 @@
 package cz.pscheidl.fortee.failsafe;
 
-import javax.inject.Named;
 import java.util.Optional;
+import javax.inject.Named;
 
 /**
  * @author Pavel Pscheidl
