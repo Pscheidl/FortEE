@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.timeout;
+package com.github.pscheidl.fortee.timeout;
 
 import static java.lang.annotation.ElementType.*;
 import java.lang.annotation.Retention;

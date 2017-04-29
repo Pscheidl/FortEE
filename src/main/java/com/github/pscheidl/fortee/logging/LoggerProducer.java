@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.logging;
+package com.github.pscheidl.fortee.logging;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;

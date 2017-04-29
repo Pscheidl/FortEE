@@ -1,7 +1,7 @@
-package cz.pscheidl.fortee;
+package com.github.pscheidl.fortee;
 
-import cz.pscheidl.fortee.event.ExecutionError;
-import cz.pscheidl.fortee.logging.ForteeLogger;
+import com.github.pscheidl.fortee.event.ExecutionError;
+import com.github.pscheidl.fortee.logging.ForteeLogger;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Optional;
