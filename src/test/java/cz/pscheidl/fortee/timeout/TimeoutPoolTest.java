@@ -1,5 +1,10 @@
 package cz.pscheidl.fortee.timeout;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.*;
+import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -7,12 +12,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.*;
 
 /**
  * @author Pavel Pscheidl
@@ -31,12 +30,10 @@ public class TimeoutPoolTest {
                 .addAsWebInfResource("beans.xml");
     }
 
-
     @Test
     public void textExecutorServiceInjection() {
         Assert.assertNotNull(executorService);
         Assert.assertTrue(executorService instanceof TimeoutExecutorService);
-
 
     }
 
@@ -163,7 +160,6 @@ public class TimeoutPoolTest {
         Assert.assertNotNull(s);
         Assert.assertFalse(s.isPresent());
     }
-
 
     @Test(expected = ExecutionException.class)
     public void testInvokeAnyException() throws ExecutionException, InterruptedException {

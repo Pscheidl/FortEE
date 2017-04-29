@@ -1,12 +1,11 @@
 package cz.pscheidl.fortee.timeout;
 
-import javax.enterprise.util.Nonbinding;
-import javax.inject.Qualifier;
+import static java.lang.annotation.ElementType.*;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
+import javax.enterprise.util.Nonbinding;
+import javax.inject.Qualifier;
 
 /**
  * Qualifier for an timeout-enabled ExecutorService injection.
@@ -19,7 +18,8 @@ import static java.lang.annotation.ElementType.*;
 public @interface Timeout {
 
     /**
-     * @return Time interval before the underlying tasks are timed out. In milliseconds
+     * @return Time interval before the underlying tasks are timed out. In
+     * milliseconds
      */
     @Nonbinding
     public int millis() default 1000;

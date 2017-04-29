@@ -1,23 +1,20 @@
 package cz.pscheidl.fortee;
 
 import cz.pscheidl.fortee.event.ExecutionError;
-import cz.pscheidl.fortee.logging.ForteeLogger;
-import org.slf4j.Logger;
-
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import javax.annotation.Priority;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
-import javax.interceptor.Interceptors;
 import javax.interceptor.InvocationContext;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import org.slf4j.Logger;
 
 /**
- * Transforms uncatched exceptions into an empty optional.
- * Method with this interceptor present must have the return type of Optional
+ * Transforms uncatched exceptions into an empty optional. Method with this
+ * interceptor present must have the return type of Optional
  *
  * @author Pavel Pscheidl
  */
@@ -26,17 +23,18 @@ import java.util.Optional;
 @Priority(Interceptor.Priority.LIBRARY_BEFORE)
 public class FailsafeInterceptor implements Serializable {
 
-
     private Logger logger;
 
     @Inject
     private Event<ExecutionError> executionErrorEvent;
 
     /**
-     * If there is an exception thrown in the underlying method call, the exception is converted into an empty Optional.
+     * If there is an exception thrown in the underlying method call, the
+     * exception is converted into an empty Optional.
      *
      * @param invocationContext Interceptor's invocation context
-     * @return Value returned by the underlying method call. Empty optional in case of an exception.
+     * @return Value returned by the underlying method call. Empty optional in
+     * case of an exception.
      */
     @AroundInvoke
     public Object guard(InvocationContext invocationContext) {
@@ -53,7 +51,7 @@ public class FailsafeInterceptor implements Serializable {
      * Assembles and fires ExecutionError event.
      *
      * @param invocationContext Interceptor's invocation context
-     * @param throwable         Throwable catched by the interceptor
+     * @param throwable Throwable catched by the interceptor
      */
     private void throwExecutionErrorEvent(InvocationContext invocationContext, Throwable throwable) {
         ExecutionError executionError = new ExecutionError();

@@ -20,7 +20,6 @@ public class TaskTimeoutWatcher {
     private ReadWriteLock jobsLock;
     private volatile boolean checkThreadRunning;
 
-
     public TaskTimeoutWatcher(int timeout) {
         jobs = new ArrayDeque<>(200);
         jobsLock = new ReentrantReadWriteLock();
@@ -32,8 +31,8 @@ public class TaskTimeoutWatcher {
     }
 
     /**
-     * Adds new Future to the queue of tasks waiting for timeout check.
-     * If the execution time exceeds watcher's timeout, it is cancelled.
+     * Adds new Future to the queue of tasks waiting for timeout check. If the
+     * execution time exceeds watcher's timeout, it is cancelled.
      *
      * @param watchedFuture Future to be watched for timeout
      */
