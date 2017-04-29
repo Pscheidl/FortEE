@@ -21,4 +21,4 @@ hs_err_pid*
 # generated WSDL files
 src/generated
 
-containers/
+/target/
