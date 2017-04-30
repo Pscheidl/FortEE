@@ -23,7 +23,7 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 compile 'com.github.pscheidl:fortee:0.3.5'
 ```
 **Release notes**
-- Released on 30th of April 2017, 5:30 PM CET.
+- Released on 30th of April 2017, 10:30 PM CET.
 - Logging properly works without enforcing SLF4J.
 - Packages refactored to com.github.pscheidl.fortee.*
 
