@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.failsafe;
+package com.github.pscheidl.fortee.failsafe;
 
 import java.util.Optional;
 import javax.inject.Inject;
@@ -25,7 +25,7 @@ public class FailsafeInterceptorTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addPackages(true, "cz.pscheidl.fortee")
+                .addPackages(true, "com.github.pscheidl.fortee")
                 .addAsWebInfResource("beans.xml");
     }
 

@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.failsafe;
+package com.github.pscheidl.fortee.failsafe;
 
 import com.github.pscheidl.fortee.Failsafe;
 import java.util.Optional;
