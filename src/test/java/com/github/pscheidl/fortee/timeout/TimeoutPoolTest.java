@@ -1,7 +1,7 @@
-package cz.pscheidl.fortee.timeout;
+package com.github.pscheidl.fortee.timeout;
 
-import com.github.pscheidl.fortee.timeout.TimeoutExecutorService;
 import com.github.pscheidl.fortee.timeout.Timeout;
+import com.github.pscheidl.fortee.timeout.TimeoutExecutorService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class TimeoutPoolTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addPackages(true, "cz.pscheidl.fortee")
+                .addPackages(true, "com.github.pscheidl.fortee")
                 .addAsWebInfResource("beans.xml");
     }
 

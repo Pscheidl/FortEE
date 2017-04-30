@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.failsafe;
+package com.github.pscheidl.fortee.failsafe;
 
 import java.util.Optional;
 import javax.inject.Named;
