@@ -1,6 +1,7 @@
-package cz.pscheidl.fortee;
+package com.github.pscheidl.fortee;
 
-import cz.pscheidl.fortee.event.ExecutionError;
+import com.github.pscheidl.fortee.event.ExecutionError;
+import com.github.pscheidl.fortee.logging.ForteeLogger;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -23,6 +24,8 @@ import org.slf4j.Logger;
 @Priority(Interceptor.Priority.LIBRARY_BEFORE)
 public class FailsafeInterceptor implements Serializable {
 
+    @Inject
+    @ForteeLogger
     private Logger logger;
 
     @Inject
@@ -43,6 +46,7 @@ public class FailsafeInterceptor implements Serializable {
             return returnedObject;
         } catch (Throwable throwable) {
             throwExecutionErrorEvent(invocationContext, throwable);
+            logger.warn("Failsafe interceptor caught an exception: ", throwable);
             return Optional.empty();
         }
     }

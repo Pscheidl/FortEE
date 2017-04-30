@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.logging;
+package com.github.pscheidl.fortee.logging;
 
 import static java.lang.annotation.ElementType.*;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.event;
+package com.github.pscheidl.fortee.event;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;

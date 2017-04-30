@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee.timeout;
+package com.github.pscheidl.fortee.timeout;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

@@ -1,4 +1,4 @@
-package cz.pscheidl.fortee;
+package com.github.pscheidl.fortee;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;

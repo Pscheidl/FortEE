@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.4</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -12,6 +12,30 @@
         <version.org.jboss.arquillian>1.1.11.Final</version.org.jboss.arquillian>
         <version.org.wildfly>8.2.1.Final</version.org.wildfly>
     </properties>
+
+    <name>FortEE</name>
+    <description>Fault tolerance library for Java EE</description>
+    <url>https://github.com/Pscheidl/FortEE</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Pavel Pscheidl</name>
+            <email>pavelpscheidl@gmail.com</email>
+            <organization>Pavel Pscheidl</organization>
+            <organizationUrl>www.pavel.cool</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/Pscheidl/FortEE.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Pscheidl/FortEE.git</developerConnection>
+        <url>https://github.com/Pscheidl/FortEE</url>
+    </scm>
+
     <profiles>
         <profile>
             <id>test-wildfly-managed</id>

@@ -1,7 +1,7 @@
-package cz.pscheidl.fortee.extension;
+package com.github.pscheidl.fortee.extension;
 
-import cz.pscheidl.fortee.Failsafe;
-import cz.pscheidl.fortee.FailsafeInterceptor;
+import com.github.pscheidl.fortee.Failsafe;
+import com.github.pscheidl.fortee.FailsafeInterceptor;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
