@@ -15,17 +15,18 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.5</version>
+    <version>0.3.6</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:0.3.5'
+compile 'com.github.pscheidl:fortee:0.3.6'
 ```
 **Release notes**
-- Released on 30th of April 2017, 10:30 PM CET.
-- Logging properly works without enforcing SLF4J.
-- Packages refactored to com.github.pscheidl.fortee.*
+- Released on 30th of May 2017, 7:20 PM CET.
+- Failsafe interceptor handles null returned from underlying method by logging the exception and returning Optional.empty() instead.
+- Timeout qualifier now has @Target({TYPE, FIELD, METHOD, PARAMETER})
+- Explicit scope of producers removed.
 
 ## Usage
 
