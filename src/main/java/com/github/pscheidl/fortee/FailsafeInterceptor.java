@@ -43,6 +43,9 @@ public class FailsafeInterceptor implements Serializable {
     public Object guard(InvocationContext invocationContext) {
         try {
             Object returnedObject = invocationContext.proceed();
+            if (returnedObject == null) {
+                throw new NullPointerException("Underlying method returned null. java.util.Optional<T> excepted.");
+            }
             return returnedObject;
         } catch (Throwable throwable) {
             throwExecutionErrorEvent(invocationContext, throwable);
