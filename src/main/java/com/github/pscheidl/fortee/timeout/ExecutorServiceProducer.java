@@ -2,7 +2,6 @@ package com.github.pscheidl.fortee.timeout;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Named;
@@ -11,7 +10,7 @@ import javax.inject.Named;
  * @author Pavel Pscheidl
  */
 @Named
-@ApplicationScoped
+@Timeout
 public class ExecutorServiceProducer {
 
     @Produces

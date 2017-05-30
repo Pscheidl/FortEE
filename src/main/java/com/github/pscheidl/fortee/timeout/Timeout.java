@@ -14,7 +14,7 @@ import javax.inject.Qualifier;
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-@Target({TYPE, FIELD, METHOD})
+@Target({TYPE, FIELD, METHOD, PARAMETER})
 public @interface Timeout {
 
     /**
