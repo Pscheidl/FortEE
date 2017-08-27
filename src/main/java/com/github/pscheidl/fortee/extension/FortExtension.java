@@ -2,16 +2,17 @@ package com.github.pscheidl.fortee.extension;
 
 import com.github.pscheidl.fortee.Failsafe;
 import com.github.pscheidl.fortee.FailsafeInterceptor;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Pavel Pscheidl
@@ -19,6 +20,8 @@ import org.slf4j.LoggerFactory;
 public class FortExtension implements Extension {
 
     Logger logger = LoggerFactory.getLogger(FortExtension.class);
+
+    private static final String LAMBDA_METHOD_PREFIX = "lambda$";
 
     /**
      * Inspects annotated types for usage of @Failsafe interceptor and checks
@@ -61,6 +64,7 @@ public class FortExtension implements Extension {
     private <X> List<AnnotatedMethod<? super X>> findMethodsWithoutOptionalReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
                 .stream()
+                .filter(method -> !method.getJavaMember().getName().contains(LAMBDA_METHOD_PREFIX))
                 .filter(annotatedMethod -> !annotatedMethod.getJavaMember().getReturnType().equals(Optional.class))
                 .collect(Collectors.toList());
     }
@@ -78,6 +82,7 @@ public class FortExtension implements Extension {
         return annotatedType.getMethods()
                 .stream()
                 .filter(method -> method.isAnnotationPresent(Failsafe.class))
+                .filter(method -> !method.getJavaMember().getName().contains(LAMBDA_METHOD_PREFIX))
                 .filter(annotatedMethod -> !annotatedMethod.getJavaMember().getReturnType().equals(Optional.class))
                 .collect(Collectors.toList());
     }

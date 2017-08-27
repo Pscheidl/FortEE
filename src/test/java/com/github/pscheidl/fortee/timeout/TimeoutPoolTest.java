@@ -1,7 +1,5 @@
 package com.github.pscheidl.fortee.timeout;
 
-import com.github.pscheidl.fortee.timeout.Timeout;
-import com.github.pscheidl.fortee.timeout.TimeoutExecutorService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
