@@ -1,24 +1,25 @@
 package com.github.pscheidl.fortee.extension;
 
-import com.github.pscheidl.fortee.Failsafe;
-import com.github.pscheidl.fortee.FailsafeInterceptor;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.github.pscheidl.fortee.failsafe.Failsafe;
+import com.github.pscheidl.fortee.failsafe.FailsafeInterceptor;
+
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @author Pavel Pscheidl
  */
 public class FortExtension implements Extension {
 
-    Logger logger = LoggerFactory.getLogger(FortExtension.class);
+    private final Logger logger = Logger.getLogger(FortExtension.class.getName());
 
     /**
      * Inspects annotated types for usage of @Failsafe interceptor and checks
@@ -38,13 +39,13 @@ public class FortExtension implements Extension {
             List<AnnotatedMethod<? super X>> badMethods = findMethodsWithoutOptionalReturnType(annotatedType);
             if (!badMethods.isEmpty()) {
                 logBadMethods(badMethods);
-                throw new RuntimeException("Found methods that violate Optional<T> return contract.");
+                throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
             }
         } else {
             List<AnnotatedMethod<? super X>> badMethods = findGuardedMethodsWithBadReturnType(annotatedType);
             if (!badMethods.isEmpty()) {
                 logBadMethods(badMethods);
-                throw new RuntimeException("Found methods that violate Optional<T> return contract.");
+                throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
             }
         }
     }
@@ -54,7 +55,7 @@ public class FortExtension implements Extension {
      * Optional<T> return type.
      *
      * @param annotatedType Class annotated with @Failsafe annotation
-     * @param <X> Generic type of AnnotatedType
+     * @param <X>           Generic type of AnnotatedType
      * @return Potentially empty list of public methods not returning
      * Optional<T>.
      */
@@ -70,7 +71,7 @@ public class FortExtension implements Extension {
      * annotation for not returning Optional<T>.
      *
      * @param annotatedType Class annotated with @Failsafe annotation
-     * @param <X> Generic type of AnnotatedType
+     * @param <X>           Generic type of AnnotatedType
      * @return Potentially empty list of public methods not returning
      * Optional<T>.
      */
@@ -87,16 +88,16 @@ public class FortExtension implements Extension {
      * type
      *
      * @param badMethods List of bad methods to print
-     * @param <X> Generic type of AnnotatedType
+     * @param <X>        Generic type of AnnotatedType
      */
     private <X> void logBadMethods(List<AnnotatedMethod<? super X>> badMethods) {
         badMethods.forEach(method -> {
+            final String error = String.format("A guarded method {} in class {} does not return Optional<T>.",
+                    method.getJavaMember().getName(),
+                    method.getJavaMember().getDeclaringClass().getCanonicalName());
             StringBuilder badMethodMessageBuilder = new StringBuilder("A guarded method ");
-            badMethodMessageBuilder.append(method.getJavaMember().getName());
-            badMethodMessageBuilder.append(" in class ");
-            badMethodMessageBuilder.append(method.getJavaMember().getDeclaringClass().getCanonicalName());
-            badMethodMessageBuilder.append(" does not return Optional<T>.");
-            logger.error(badMethodMessageBuilder.toString());
+
+            logger.log(Level.SEVERE, error);
         });
     }
 }
