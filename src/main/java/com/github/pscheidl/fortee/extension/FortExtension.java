@@ -95,8 +95,7 @@ public class FortExtension implements Extension {
             final String error = String.format("A guarded method {} in class {} does not return Optional<T>.",
                     method.getJavaMember().getName(),
                     method.getJavaMember().getDeclaringClass().getCanonicalName());
-            StringBuilder badMethodMessageBuilder = new StringBuilder("A guarded method ");
-
+            
             logger.log(Level.SEVERE, error);
         });
     }
