@@ -1,12 +1,12 @@
-package com.github.pscheidl.fortee.failsafe;
+package com.github.pscheidl.fortee.failsafe.beans;
 
+import javax.enterprise.context.Dependent;
 import java.util.Optional;
-import javax.inject.Named;
 
 /**
  * @author Pavel Pscheidl
  */
-@Named
+@Dependent
 public class NotFailingBean {
 
     public Optional<String> returnOptionalWithStringInside() {

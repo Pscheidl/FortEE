@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-api:7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.mail:javax.mail:1.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.junit:arquillian-junit-container:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.junit:arquillian-junit-core:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.test:arquillian-test-api:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.test:arquillian-test-spi:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.core:arquillian-core-spi:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.container:arquillian-container-test-api:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap:shrinkwrap-api:1.2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.container:arquillian-container-test-spi:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.container:arquillian-container-spi:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api-base:2.0.0-alpha-10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.core:arquillian-core-impl-base:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.test:arquillian-test-impl-base:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.container:arquillian-container-impl-base:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.config:arquillian-config-api:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.config:arquillian-config-impl-base:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-spi:2.0.0-alpha-10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.container:arquillian-container-test-impl-base:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap:shrinkwrap-impl-base:1.2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap:shrinkwrap-spi:1.2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.arquillian:wildfly-arquillian-container-managed:2.0.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.arquillian:wildfly-arquillian-common:2.0.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.testenricher:arquillian-testenricher-cdi:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.testenricher:arquillian-testenricher-ejb:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.testenricher:arquillian-testenricher-initialcontext:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.testenricher:arquillian-testenricher-resource:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.protocol:arquillian-protocol-servlet:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.arquillian:wildfly-arquillian-testenricher-msc:2.0.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-server:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-controller:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss:staxmapper:1.2.0.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-domain-http-interface:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-deployment-repository:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-platform-mbean:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-process-controller:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-network:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-self-contained:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-version:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss:jandex:2.0.1.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.invocation:jboss-invocation:1.4.1.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.logmanager:jboss-logmanager:2.0.3.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.modules:jboss-modules:1.5.1.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.stdio:jboss-stdio:1.0.2.GA" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss:jboss-vfs:3.2.11.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.undertow:undertow-core:1.3.15.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.common:wildfly-common:1.1.0.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-controller-client:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-protocol:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss:jboss-dmr:1.3.0.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.threads:jboss-threads:2.2.1.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-impl-base:2.0.0-alpha-10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.arquillian:wildfly-arquillian-protocol-jmx:2.0.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.security:wildfly-elytron:1.0.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.protocol:arquillian-protocol-jmx:1.1.13.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-jmx:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.msc:jboss-msc:1.2.6.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-remoting:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-domain-management:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.picketbox:picketbox:4.9.4.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-core-security:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-core-security-api:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-io:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.xnio:xnio-api:3.3.4.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.xnio:xnio-nio:3.3.4.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.marshalling:jboss-marshalling:1.4.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.marshalling:jboss-marshalling-river:1.4.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.remoting:jboss-remoting:4.0.18.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.remotingjmx:remoting-jmx:2.0.1.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.sasl:jboss-sasl:1.0.5.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wildfly.core:wildfly-launcher:2.0.10.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.core:arquillian-core-api:1.1.13.Final" level="project" />
+  </component>
+</module>

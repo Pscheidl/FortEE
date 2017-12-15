@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.8</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <version.org.jboss.arquillian>1.1.11.Final</version.org.jboss.arquillian>
-        <version.org.wildfly>8.2.1.Final</version.org.wildfly>
+        <version.org.wildfly>11.0.0.Final</version.org.wildfly>
     </properties>
 
     <name>FortEE</name>
@@ -163,12 +163,6 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
