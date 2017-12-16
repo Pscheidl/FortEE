@@ -36,7 +36,7 @@ public class FortExtension implements Extension {
         }
 
         if (annotatedType.isAnnotationPresent(Failsafe.class)) {
-            List<AnnotatedMethod<? super X>> badMethods = findMethodsWithoutOptionalReturnType(annotatedType);
+            List<AnnotatedMethod<? super X>> badMethods = scanMethodsForIncorrectReturnType(annotatedType);
             if (!badMethods.isEmpty()) {
                 logBadMethods(badMethods);
                 throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
@@ -59,7 +59,7 @@ public class FortExtension implements Extension {
      * @return Potentially empty list of public methods not returning
      * Optional<T>.
      */
-    private <X> List<AnnotatedMethod<? super X>> findMethodsWithoutOptionalReturnType(AnnotatedType<X> annotatedType) {
+    private <X> List<AnnotatedMethod<? super X>> scanMethodsForIncorrectReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
                 .stream()
                 .filter(annotatedMethod -> !annotatedMethod.getJavaMember().getReturnType().equals(Optional.class))
@@ -95,7 +95,7 @@ public class FortExtension implements Extension {
             final String error = String.format("A guarded method {} in class {} does not return Optional<T>.",
                     method.getJavaMember().getName(),
                     method.getJavaMember().getDeclaringClass().getCanonicalName());
-            
+
             logger.log(Level.SEVERE, error);
         });
     }
