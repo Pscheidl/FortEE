@@ -51,7 +51,7 @@ public Optional<String> maybeFail(){
 @Named
 public class ExecutionErrorObserver {
 
-public void observe(@Observes ExecutionError executionError){
+public void observe(@Observes ExecutionErrorEvent executionError){
   // Do whatever is needed e.g. log the Throwable cause
 }
 
