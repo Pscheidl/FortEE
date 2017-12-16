@@ -5,7 +5,9 @@ import com.github.pscheidl.fortee.failsafe.beans.NotFailingBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +29,16 @@ public class FailsafeInterceptorTest {
 
     @Deployment
     public static WebArchive createDeployment() {
+
+        final JavaArchive as = ShrinkWrap.create(MavenImporter.class)
+                .loadPomFromFile("pom.xml")
+                .importBuildOutput()
+                .as(JavaArchive.class);
+
         return ShrinkWrap.create(WebArchive.class)
-                .addPackages(true, "com.github.pscheidl.fortee")
+                .addAsLibrary(as)
+                .addClass(FailingBean.class)
+                .addClass(NotFailingBean.class)
                 .addAsWebInfResource("beans.xml");
     }
 
