@@ -59,41 +59,6 @@ public void observe(@Observes ExecutionError executionError){
 }
 ```
 
-## Timeout
-
-Leverages `java.util.concurrent.ExecutorService` to provide Timeout mechanism. Unlike other solutions out there, default number of threads created as a part of ExecutorService is `n+1`, where `n` is number of tasks executed. The one additional thread watches for `Future` task timeout. Temporarily, more threads may be created when `invokeAny()` and `invokeAll()` methods are used.
-
-- Injects only ExecutorService with `@Timeout` qualifier used. Leaves room for custom ExecutionService producers and does not collide with @Default.
-
-Usage of `@Timeout` is completely independent of using `Failsafe`. In the example below, the `SomeService` may be guarded by `@Failsafe`.
-
-```java
-public class Example {
-
-    @Inject
-    private SomeService someService;
-
-    //100 Threads in a pool. Each new task has a timeout of 10 milliseconds.
-    @Inject
-    @Timeout(threads = 100, millis = 10)
-    private ExecutorService executor;
-
-
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response test() throws ExecutionException, InterruptedException {
-        Future<Optional<String>> submit = executor.submit(someService::doSomething);
-        
-        try {
-            Optional<String> s = submit.get();
-            return Response.ok(s).build();
-        } catch (CancellationException e) {
-            return Response.noContent().build();
-        }
-    }
-}
-```
-
 ## Known issues
 
 ### GlassFish
