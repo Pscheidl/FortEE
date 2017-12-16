@@ -26,7 +26,7 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 compile 'com.github.pscheidl:fortee:1.0.0'
 ```
 **Release notes**
-- Released on 49th of December 2017
+- Released on 16th of December 2017
 
 ## Usage
 
