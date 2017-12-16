@@ -15,12 +15,12 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>0.3.8</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:0.3.8'
+compile 'com.github.pscheidl:fortee:1.0.0'
 ```
 **Release notes**
 - Released on 27th of August 2017
@@ -39,7 +39,7 @@ Basic fault tolerance mechanism leveraging `java.util.Optional<T>`. The underlyi
 @Named
 public class ServiceImplementation implements SomeService {
 
-// Will return Optional.empty(), exception will be logged
+// Will return Optional.empty()
 @Failsafe
 public Optional<String> maybeFail(){
   throw new RuntimeException("Failed on purpose");
@@ -94,5 +94,15 @@ public class Example {
 }
 ```
 
-## Current plans
-- Timeout is now only absolute. This is not a good solution for real-world, where latency of services differs greatly in time. A little bit of cheap machine learning and voilá, no restarts and manual observation needed. Only confidence interval is required ! Absolute timeout will still be usable as a maximum cap per-request.
+## Known issues
+
+### GlassFish
+
+Failsafe interceptor may not be automatically enabled and requires manual registration in beans.xml. This **does not apply to Payara**, as Payara team has [fixed this issue](https://github.com/payara/Payara/issues/1532).
+
+```xml
+    <interceptors>
+        <class>com.github.pscheidl.fortee.failsafe.FailsafeInterceptor</class>
+    </interceptors>
+``` 
+

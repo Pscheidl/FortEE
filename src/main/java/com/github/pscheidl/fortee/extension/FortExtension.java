@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
+ * Listens during CDI startup, registering necessary interceptors.
+ *
  * @author Pavel Pscheidl
  */
 public class FortExtension implements Extension {
@@ -22,8 +24,7 @@ public class FortExtension implements Extension {
     private final Logger logger = Logger.getLogger(FortExtension.class.getName());
 
     /**
-     * Inspects annotated types for usage of @Failsafe interceptor and checks
-     * the return types of intercepted methods.
+     * Inspects annotated types for usage of @Failsafe interceptor and checks the return types of intercepted methods.
      *
      * @param pat Annotated type to be processed
      * @param <X> Generic type of AnnotatedType
@@ -51,13 +52,11 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * Searches all methods declared in the underlying class for not having
-     * Optional<T> return type.
+     * Searches all methods declared in the underlying class for not having Optional<T> return type.
      *
      * @param annotatedType Class annotated with @Failsafe annotation
      * @param <X>           Generic type of AnnotatedType
-     * @return Potentially empty list of public methods not returning
-     * Optional<T>.
+     * @return Potentially empty list of public methods not returning Optional<T>.
      */
     private <X> List<AnnotatedMethod<? super X>> scanMethodsForIncorrectReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
@@ -67,13 +66,11 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * Searches methods in the underlying class annotated with @Failsafe
-     * annotation for not returning Optional<T>.
+     * Searches methods in the underlying class annotated with @Failsafe annotation for not returning Optional<T>.
      *
      * @param annotatedType Class annotated with @Failsafe annotation
      * @param <X>           Generic type of AnnotatedType
-     * @return Potentially empty list of public methods not returning
-     * Optional<T>.
+     * @return Potentially empty list of public methods not returning Optional<T>.
      */
     private <X> List<AnnotatedMethod<? super X>> findGuardedMethodsWithBadReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
@@ -84,8 +81,7 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * Logs names of methods and their declaring classes without proper return
-     * type
+     * Logs names of methods and their declaring classes without proper return type
      *
      * @param badMethods List of bad methods to print
      * @param <X>        Generic type of AnnotatedType
