@@ -92,9 +92,8 @@ public class FortExtension implements Extension {
      */
     private <X> void logBadMethods(List<AnnotatedMethod<? super X>> badMethods) {
         badMethods.forEach(method -> {
-            final String error = String.format("A guarded method {} in class {} does not return Optional<T>.",
-                    method.getJavaMember().getName(),
-                    method.getJavaMember().getDeclaringClass().getCanonicalName());
+            final String error = String.format("A guarded method %s does not return Optional<T>.",
+                    method.getJavaMember().toString());
 
             logger.log(Level.SEVERE, error);
         });
