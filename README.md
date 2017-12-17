@@ -28,7 +28,7 @@ compile 'com.github.pscheidl:fortee:1.1.0'
 
 ## How it works ?
 
-Please visit [FortEE wikipedia](https://github.com/Pscheidl/FortEE/wiki). 
+For more information, please visit [FortEE wikipedia](https://github.com/Pscheidl/FortEE/wiki). 
 
 Guard against all checked and unchecked exceptions.
 
