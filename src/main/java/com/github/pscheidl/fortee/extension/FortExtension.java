@@ -2,6 +2,7 @@ package com.github.pscheidl.fortee.extension;
 
 import com.github.pscheidl.fortee.failsafe.Failsafe;
 import com.github.pscheidl.fortee.failsafe.FailsafeInterceptor;
+import com.github.pscheidl.fortee.failsafe.Semisafe;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedMethod;
@@ -32,11 +33,12 @@ public class FortExtension implements Extension {
     public <X> void inspectFailsafeAnnotated(@Observes ProcessAnnotatedType<X> pat) {
         AnnotatedType<X> annotatedType = pat.getAnnotatedType();
 
-        if (annotatedType.getJavaClass().equals(FailsafeInterceptor.class)) {
+        if (FailsafeInterceptor.class.isAssignableFrom(annotatedType.getJavaClass())) {
             return;
         }
 
-        if (annotatedType.isAnnotationPresent(Failsafe.class)) {
+        if (annotatedType.isAnnotationPresent(Failsafe.class)
+                || annotatedType.isAnnotationPresent(Semisafe.class)) {
             List<AnnotatedMethod<? super X>> badMethods = scanMethodsForIncorrectReturnType(annotatedType);
             if (!badMethods.isEmpty()) {
                 logBadMethods(badMethods);
@@ -75,7 +77,7 @@ public class FortExtension implements Extension {
     private <X> List<AnnotatedMethod<? super X>> findGuardedMethodsWithBadReturnType(AnnotatedType<X> annotatedType) {
         return annotatedType.getMethods()
                 .stream()
-                .filter(method -> method.isAnnotationPresent(Failsafe.class))
+                .filter(method -> method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
                 .filter(annotatedMethod -> !annotatedMethod.getJavaMember().getReturnType().equals(Optional.class))
                 .collect(Collectors.toList());
     }
@@ -91,7 +93,7 @@ public class FortExtension implements Extension {
             final String error = String.format("A guarded method %s does not return Optional<T>.",
                     method.getJavaMember().toString());
 
-            logger.log(Level.SEVERE, error);
+            logger.log(Level.INFO, error);
         });
     }
 }
