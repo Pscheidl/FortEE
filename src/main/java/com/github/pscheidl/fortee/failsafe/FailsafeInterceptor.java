@@ -5,6 +5,9 @@ import javax.inject.Inject;
 import javax.interceptor.InvocationContext;
 import java.time.LocalDateTime;
 
+/**
+ * Abstract Failsafe interceptor converting unexpected erroneous states into an empty {@link java.util.Optional}
+ */
 public abstract class FailsafeInterceptor {
 
     @Inject
