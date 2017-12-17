@@ -1,6 +1,5 @@
 package com.github.pscheidl.fortee.extension.beans;
 
-import com.github.pscheidl.fortee.failsafe.Failsafe;
 import com.github.pscheidl.fortee.failsafe.Semisafe;
 
 import javax.enterprise.context.Dependent;
