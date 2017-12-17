@@ -15,6 +15,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.Optional;
 
 @RunWith(Arquillian.class)
@@ -75,7 +76,7 @@ public class SemisafeInterceptorTest {
 
     @Test
     public void testThrowSilentException() {
-        expectedException.expect(RuntimeException.class);
+        expectedException.expect(IOException.class);
         semiGuardedBean.throwSilentException();
     }
 

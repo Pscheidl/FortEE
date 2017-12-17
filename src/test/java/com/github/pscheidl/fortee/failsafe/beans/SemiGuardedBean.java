@@ -5,6 +5,7 @@ import junit.framework.AssertionFailedError;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.enterprise.context.Dependent;
+import java.io.IOException;
 import java.util.Optional;
 
 @Dependent
@@ -35,13 +36,13 @@ public class SemiGuardedBean {
         return Optional.of("Something");
     }
 
-    @Semisafe({RuntimeException.class})
+    @Semisafe({IOException.class})
     public Optional<String> throwSilentException() {
-        return ExceptionUtils.rethrow(new RuntimeException());
+        return ExceptionUtils.rethrow(new IOException());
     }
 
     @Semisafe({})
     public Optional<String> convertSilentException() {
-        return ExceptionUtils.rethrow(new RuntimeException());
+        return ExceptionUtils.rethrow(new IOException());
     }
 }
