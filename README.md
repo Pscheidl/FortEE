@@ -29,3 +29,32 @@ compile 'com.github.pscheidl:fortee:1.1.0'
 ## How it works ?
 
 Please visit [FortEE wikipedia](https://github.com/Pscheidl/FortEE/wiki). 
+
+@Failsafe
+
+```java
+@Named
+public class ServiceImplementation implements SomeService {
+
+// Will return Optional.empty()
+@Failsafe
+public Optional<String> maybeFail(){
+  throw new RuntimeException("Failed on purpose");
+}
+
+}
+```
+@Semisafe
+
+```java
+@Named
+public class ServiceImplementation implements SomeService {
+
+// Will end with RuntimeException
+@Semisafe({RuntimeException.class})
+public Optional<String> maybeFail(){
+  throw new RuntimeException("Failed on purpose");
+}
+
+}
+```
