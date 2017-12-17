@@ -8,14 +8,20 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+/**
+ * Transforms uncatched exceptions into an empty optional, except for allowed exceptions defined in {@link Semisafe}
+ * annotation. Method with this interceptor present must have the return type of Optional.
+ *
+ * @author Pavel Pscheidl
+ */
 @Interceptor
 @Semisafe({})
 @Priority(Interceptor.Priority.LIBRARY_BEFORE)
 class SemisafeInterceptor extends FailsafeInterceptor implements Serializable {
 
     /**
-     * If there is an exception thrown in the underlying method call, the exception is converted into an empty
-     * Optional.
+     * If there is a {@link Throwable} thrown in the underlying method call, the exception is converted into an empty
+     * Optional, unless the {@link Error} or {@link Exception} is listed as ignorable in {@link Semisafe} annotation.
      *
      * @param invocationContext Interceptor's invocation context
      * @return Value returned by the underlying method call. Empty optional in case of an exception.
@@ -38,6 +44,11 @@ class SemisafeInterceptor extends FailsafeInterceptor implements Serializable {
         }
     }
 
+    /**
+     * @param throwable Intercepted {@link Throwable}
+     * @param method    Intercepted {@link Method}
+     * @return True if {@link Throwable} instance is among throwables to be ignored
+     */
     private boolean isIgnoredThrowable(Throwable throwable, Method method) {
         Semisafe methodAnnotation = method.getAnnotation(Semisafe.class);
 
