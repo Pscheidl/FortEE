@@ -30,7 +30,7 @@ compile 'com.github.pscheidl:fortee:1.1.0'
 
 Please visit [FortEE wikipedia](https://github.com/Pscheidl/FortEE/wiki). 
 
-@Failsafe
+Guard against all checked and unchecked exceptions.
 
 ```java
 @Named
@@ -44,7 +44,8 @@ public Optional<String> maybeFail(){
 
 }
 ```
-@Semisafe
+
+Guard against all exceptions but the listed ones.
 
 ```java
 @Named
