@@ -27,7 +27,7 @@ compile 'com.github.pscheidl:fortee:1.0.0'
 
 ## Usage
 
-## Failsafe
+### Failsafe
 
 Basic fault tolerance mechanism leveraging `java.util.Optional<T>`. The underlying method either did return a value or did not.
 
@@ -58,9 +58,9 @@ public void observe(@Observes ExecutionErrorEvent executionError){
 }
 ```
 
-## Semisafe
+### Semisafe - allowed exceptions & errors
 
-More advanced fault tolerance mechanism leveraging `java.util.Optional<T>`. The underlying method either did return a value or did not.
+The `@Semisafe` annotation allows listing Throwables allowed to be thrown.
 
 - Methods annotated with @Semisafe({}) must return Optional<T>. This is checked at startup-time. If this condition is not met, exception is thrown during startup phase with details about which methods failed the test.
 - Methods annotated with @Semisafe must enforce this Optional<T> return type on all declared methods.
@@ -69,7 +69,7 @@ More advanced fault tolerance mechanism leveraging `java.util.Optional<T>`. The 
 @Named
 public class ServiceImplementation implements SomeService {
 
-// Will return Optional.empty()
+// Will end with RuntimeException
 @Semisafe({RuntimeException.class})
 public Optional<String> maybeFail(){
   throw new RuntimeException("Failed on purpose");
@@ -77,17 +77,20 @@ public Optional<String> maybeFail(){
 
 }
 ```
-#### On-fail event observation
+
 ```java
 @Named
-public class ExecutionErrorObserver {
+public class ServiceImplementation implements SomeService {
 
-public void observe(@Observes ExecutionErrorEvent executionError){
-  // Do whatever is needed e.g. log the Throwable cause
+// Will return Optional.empty()
+@Semisafe({RuntimeException.class})
+public Optional<String> maybeFail(){
+  throw new AnyUnlistedException("This exception will be converted");
 }
 
 }
 ```
+
 
 ## Known issues
 
