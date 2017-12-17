@@ -15,16 +15,16 @@ FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:1.0.0'
+compile 'com.github.pscheidl:fortee:1.1.0'
 ```
 **Release notes**
-- Released on 16th of December 2017
-
+- Released on 17th of December 2017
+- Introduced allowed exceptions with @Semisafe annotation
 ## Usage
 
 ### Failsafe
