@@ -81,7 +81,9 @@ public class SemisafeInterceptorTest {
 
     @Test
     public void testConvertSilentException() {
-        semiGuardedBean.convertSilentException();
+        final Optional<String> optionalWithStringInside = semiGuardedBean.convertSilentException();
+        Assert.assertNotNull(optionalWithStringInside);
+        Assert.assertFalse(optionalWithStringInside.isPresent());
     }
 
 }
