@@ -10,8 +10,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * Binds {@link NoExceptionsFailsafeInterceptor} to a specific method or to each and every public-declared method when placed on top
- * of a CDI bean.
+ * Binds {@link NoExceptionsFailsafeInterceptor} to a specific method or to each and every public-declared method when
+ * placed on top of a CDI bean.
  *
  * @author Pavel Pscheidl
  */

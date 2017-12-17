@@ -1,8 +1,7 @@
 package com.github.pscheidl.fortee.failsafe;
 
-import com.github.pscheidl.fortee.failsafe.beans.FailingBean;
-import com.github.pscheidl.fortee.failsafe.beans.NotFailingBean;
 import com.github.pscheidl.fortee.failsafe.beans.SemiGuardedBean;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -35,6 +34,7 @@ public class SemisafeInterceptorTest {
 
         return ShrinkWrap.create(WebArchive.class)
                 .addAsLibrary(as)
+                .addClass(ExceptionUtils.class)
                 .addClass(SemiGuardedBean.class)
                 .addAsWebInfResource("beans.xml");
     }
@@ -71,6 +71,17 @@ public class SemisafeInterceptorTest {
         Assert.assertNotNull(optionalWithStringInside);
         Assert.assertTrue(optionalWithStringInside.isPresent());
         Assert.assertEquals("Something", optionalWithStringInside.get());
+    }
+
+    @Test
+    public void testThrowSilentException() {
+        expectedException.expect(RuntimeException.class);
+        semiGuardedBean.throwSilentException();
+    }
+
+    @Test
+    public void testConvertSilentException() {
+        semiGuardedBean.convertSilentException();
     }
 
 }

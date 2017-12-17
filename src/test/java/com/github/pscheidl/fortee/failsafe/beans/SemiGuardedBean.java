@@ -2,6 +2,7 @@ package com.github.pscheidl.fortee.failsafe.beans;
 
 import com.github.pscheidl.fortee.failsafe.Semisafe;
 import junit.framework.AssertionFailedError;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.enterprise.context.Dependent;
 import java.util.Optional;
@@ -32,5 +33,15 @@ public class SemiGuardedBean {
     @Semisafe({})
     public Optional<String> returnSomething() {
         return Optional.of("Something");
+    }
+
+    @Semisafe({RuntimeException.class})
+    public Optional<String> throwSilentException() {
+        return ExceptionUtils.rethrow(new RuntimeException());
+    }
+
+    @Semisafe({})
+    public Optional<String> convertSilentException() {
+        return ExceptionUtils.rethrow(new RuntimeException());
     }
 }
