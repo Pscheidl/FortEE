@@ -58,6 +58,37 @@ public void observe(@Observes ExecutionErrorEvent executionError){
 }
 ```
 
+## Semisafe
+
+More advanced fault tolerance mechanism leveraging `java.util.Optional<T>`. The underlying method either did return a value or did not.
+
+- Methods annotated with @Semisafe({}) must return Optional<T>. This is checked at startup-time. If this condition is not met, exception is thrown during startup phase with details about which methods failed the test.
+- Methods annotated with @Semisafe must enforce this Optional<T> return type on all declared methods.
+
+```java
+@Named
+public class ServiceImplementation implements SomeService {
+
+// Will return Optional.empty()
+@Semisafe({RuntimeException.class})
+public Optional<String> maybeFail(){
+  throw new RuntimeException("Failed on purpose");
+}
+
+}
+```
+#### On-fail event observation
+```java
+@Named
+public class ExecutionErrorObserver {
+
+public void observe(@Observes ExecutionErrorEvent executionError){
+  // Do whatever is needed e.g. log the Throwable cause
+}
+
+}
+```
+
 ## Known issues
 
 ### GlassFish
