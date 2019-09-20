@@ -9,8 +9,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <version.org.jboss.arquillian>1.1.11.Final</version.org.jboss.arquillian>
-        <version.org.wildfly>11.0.0.Final</version.org.wildfly>
+        <version.org.jboss.arquillian>1.4.1.Final</version.org.jboss.arquillian>
+        <version.org.wildfly>17.0.1.Final</version.org.wildfly>
     </properties>
 
     <name>FortEE</name>
@@ -46,7 +46,7 @@
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>2.0.2.Final</version>
+                    <version>2.1.1.Final</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -180,6 +180,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
+            <version>${version.org.jboss.arquillian}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -195,7 +196,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.13.Final</version>
+                <version>${version.org.jboss.arquillian}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

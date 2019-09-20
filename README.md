@@ -3,11 +3,12 @@
 [![Build Status](https://travis-ci.org/Pscheidl/FortEE.svg?branch=master)](https://travis-ci.org/Pscheidl/FortEE)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cab8a9609a9a4362a18c1ff3f759cf02)](https://www.codacy.com/app/pavel.junior/FortEE?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Pscheidl/FortEE&amp;utm_campaign=Badge_Grade)
 
-FortEE is a Java EE fault-tolerance guard leveraging the Optional pattern. Its power lies in its simplicity. On methods returning Optional<T>, a @Failsafe annotation can be placed. Any uncaught exceptional states are then converted into an Optional.empty(). Synchronous or asynchronous invocation is not enforced.
+FortEE is a Jakarta EE / Java EE fault-tolerance guard leveraging the Optional pattern. Its power lies in its simplicity. On methods returning Optional<T>, a @Failsafe annotation can be placed. Any uncaught exceptional states are then converted into an Optional.empty(). Synchronous or asynchronous invocation is not enforced.
 
 - Simple and fast
 - Startup-time check
 - Tiny in size
+- Compatible with Jakarta EE 8, requires Java EE 7
 
 
 ## Maven
