@@ -75,11 +75,11 @@ public class FortExtension implements Extension {
      * @return Potentially empty list of public methods not returning Optional<T>.
      */
     private <X> List<AnnotatedMethod<? super X>> findGuardedMethodsWithBadReturnType(AnnotatedType<X> annotatedType) {
-        return annotatedType.getMethods()
-                .stream()
-                .filter(method -> method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
-                .filter(annotatedMethod -> !annotatedMethod.getJavaMember().getReturnType().equals(Optional.class))
-                .collect(Collectors.toList());
+      return annotatedType.getMethods()
+              .stream()
+              .filter(method -> (method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
+                      && !method.getJavaMember().getReturnType().equals(Optional.class))
+              .collect(Collectors.toList());
     }
 
     /**
