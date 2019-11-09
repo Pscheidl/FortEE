@@ -5,15 +5,12 @@ import com.github.pscheidl.fortee.failsafe.FailsafeInterceptor;
 import com.github.pscheidl.fortee.failsafe.Semisafe;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * Listens during CDI startup, registering necessary interceptors.
@@ -37,19 +34,12 @@ public class FortExtension implements Extension {
             return;
         }
 
-        if (annotatedType.isAnnotationPresent(Failsafe.class)
-                || annotatedType.isAnnotationPresent(Semisafe.class)) {
-            List<AnnotatedMethod<? super X>> badMethods = scanMethodsForIncorrectReturnType(annotatedType);
-            if (!badMethods.isEmpty()) {
-                logBadMethods(badMethods);
-                throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
-            }
+        if (annotatedType.isAnnotationPresent(Failsafe.class) || annotatedType.isAnnotationPresent(Semisafe.class)) {
+            scanAllMethodsForIncorrectReturnType(annotatedType);
+            scanAllMethodsForDeclaredThrowables(annotatedType);
         } else {
-            List<AnnotatedMethod<? super X>> badMethods = findGuardedMethodsWithBadReturnType(annotatedType);
-            if (!badMethods.isEmpty()) {
-                logBadMethods(badMethods);
-                throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
-            }
+            findGuardedMethodsWithBadReturnType(annotatedType);
+            findGuardedMethodsDeclaringExceptions(annotatedType);
         }
     }
 
@@ -60,11 +50,44 @@ public class FortExtension implements Extension {
      * @param <X>           Generic type of AnnotatedType
      * @return Potentially empty list of public methods not returning Optional<T>.
      */
-    private <X> List<AnnotatedMethod<? super X>> scanMethodsForIncorrectReturnType(AnnotatedType<X> annotatedType) {
-        return annotatedType.getMethods()
+    private <X> void scanAllMethodsForIncorrectReturnType(AnnotatedType<X> annotatedType) {
+        final long count = annotatedType.getMethods()
                 .stream()
                 .filter(annotatedMethod -> !annotatedMethod.getJavaMember().getReturnType().equals(Optional.class))
-                .collect(Collectors.toList());
+                .map(badMethod -> {
+                    final String error = String.format("A guarded method %s does not return Optional<T>.",
+                            badMethod.getJavaMember().toString());
+                    logger.log(Level.INFO, error);
+                    return badMethod;
+                })
+                .count();
+
+        if (count > 0) {
+            throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
+        }
+    }
+
+    /**
+     * @param annotatedType
+     * @param <X>
+     */
+    private <X> void scanAllMethodsForDeclaredThrowables(AnnotatedType<X> annotatedType) {
+        final long count = annotatedType.getMethods()
+                .stream()
+                .filter(annotatedMethod -> annotatedMethod.getJavaMember().getExceptionTypes().length != 0)
+                .map(badMethod -> {
+                    final String error = String.format("A guarded method %s has declared exceptions thrown." +
+                                    " Please remove the exception declaration from method's signature.",
+                            badMethod.getJavaMember().toString());
+                    logger.log(Level.INFO, error);
+                    return badMethod;
+                })
+                .count();
+
+        if (count > 0) {
+            throw new IncorrectMethodSignatureException("Found guarded methods with declared exceptions thrown." +
+                    " Please remove the exception declaration from their signatures signature.");
+        }
     }
 
     /**
@@ -74,26 +97,46 @@ public class FortExtension implements Extension {
      * @param <X>           Generic type of AnnotatedType
      * @return Potentially empty list of public methods not returning Optional<T>.
      */
-    private <X> List<AnnotatedMethod<? super X>> findGuardedMethodsWithBadReturnType(AnnotatedType<X> annotatedType) {
-      return annotatedType.getMethods()
-              .stream()
-              .filter(method -> (method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
-                      && !method.getJavaMember().getReturnType().equals(Optional.class))
-              .collect(Collectors.toList());
+    private <X> void findGuardedMethodsWithBadReturnType(AnnotatedType<X> annotatedType) {
+        final long count = annotatedType.getMethods()
+                .stream()
+                .filter(method -> (method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
+                        && !method.getJavaMember().getReturnType().equals(Optional.class))
+                .map(badMethod -> {
+                    final String error = String.format("A guarded method %s does not return Optional<T>.",
+                            badMethod.getJavaMember().toString());
+                    logger.log(Level.INFO, error);
+                    return badMethod;
+                })
+                .count();
+
+        if (count > 0) {
+            throw new IncorrectMethodSignatureException("Found methods that violate Optional<T> return contract.");
+        }
     }
 
     /**
-     * Logs names of methods and their declaring classes without proper return type
      *
-     * @param badMethods List of bad methods to print
-     * @param <X>        Generic type of AnnotatedType
+     * @param annotatedType Class annotated with @Failsafe annotation
+     * @param <X>           Generic type of AnnotatedType
      */
-    private <X> void logBadMethods(List<AnnotatedMethod<? super X>> badMethods) {
-        badMethods.forEach(method -> {
-            final String error = String.format("A guarded method %s does not return Optional<T>.",
-                    method.getJavaMember().toString());
+    private <X> void findGuardedMethodsDeclaringExceptions(AnnotatedType<X> annotatedType) {
+        final long count = annotatedType.getMethods()
+                .stream()
+                .filter(method -> (method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
+                        && method.getJavaMember().getExceptionTypes().length != 0)
+                .map(badMethod -> {
+                    final String error = String.format("A guarded method %s has declared exceptions thrown." +
+                                    " Please remove the exception declaration from method's signature.",
+                            badMethod.getJavaMember().toString());
+                    logger.log(Level.INFO, error);
+                    return badMethod;
+                })
+                .count();
 
-            logger.log(Level.INFO, error);
-        });
+        if (count > 0) {
+            throw new IncorrectMethodSignatureException("Found guarded methods with declared exceptions thrown." +
+                    " Please remove the exception declaration from their signatures signature.");
+        }
     }
 }
