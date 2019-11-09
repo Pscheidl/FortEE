@@ -68,8 +68,9 @@ public class FortExtension implements Extension {
     }
 
     /**
-     * @param annotatedType
-     * @param <X>
+     * Searches all methods declared in the underlying class for throwables declared
+     * @param annotatedType Class annotated with @Failsafe annotation
+     * @param <X>           Generic type of AnnotatedType
      */
     private <X> void scanAllMethodsForDeclaredThrowables(AnnotatedType<X> annotatedType) {
         final long count = annotatedType.getMethods()
@@ -116,7 +117,7 @@ public class FortExtension implements Extension {
     }
 
     /**
-     *
+     * Searches methods in the underlying class annotated with @Failsafe annotation for throwables declared
      * @param annotatedType Class annotated with @Failsafe annotation
      * @param <X>           Generic type of AnnotatedType
      */
