@@ -75,7 +75,8 @@ public class FortExtension implements Extension {
     private <X> void scanAllMethodsForDeclaredThrowables(AnnotatedType<X> annotatedType) {
         final long count = annotatedType.getMethods()
                 .stream()
-                .filter(annotatedMethod -> annotatedMethod.getJavaMember().getExceptionTypes().length != 0)
+                .filter(annotatedMethod -> annotatedType.isAnnotationPresent(Failsafe.class) &&
+                        annotatedMethod.getJavaMember().getExceptionTypes().length != 0)
                 .map(badMethod -> {
                     final String error = String.format("A guarded method %s has declared exceptions thrown." +
                                     " Please remove the exception declaration from method's signature.",
@@ -124,7 +125,7 @@ public class FortExtension implements Extension {
     private <X> void findGuardedMethodsDeclaringExceptions(AnnotatedType<X> annotatedType) {
         final long count = annotatedType.getMethods()
                 .stream()
-                .filter(method -> (method.isAnnotationPresent(Failsafe.class) || method.isAnnotationPresent(Semisafe.class))
+                .filter(method -> (method.isAnnotationPresent(Failsafe.class))
                         && method.getJavaMember().getExceptionTypes().length != 0)
                 .map(badMethod -> {
                     final String error = String.format("A guarded method %s has declared exceptions thrown." +
