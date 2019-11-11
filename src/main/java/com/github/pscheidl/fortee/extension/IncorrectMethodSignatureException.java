@@ -5,7 +5,7 @@ package com.github.pscheidl.fortee.extension;
  *
  * @author Pavel Pscheidl
  */
-class IncorrectMethodSignatureException extends RuntimeException {
+public class IncorrectMethodSignatureException extends RuntimeException {
 
     /**
      * Constructs a new {@link IncorrectMethodSignatureException} with cause left uninitialized.
