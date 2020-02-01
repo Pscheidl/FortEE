@@ -46,7 +46,20 @@ public Optional<String> maybeFail(){
 }
 ```
 
-Guard against all exceptions but the listed ones.
+Guard against all exceptions but the declared ones, or the ones listed in the `@Semisafe` annotation..
+
+```java
+@Named
+public class ServiceImplementation implements SomeService {
+
+// Will end with RuntimeException
+@Semisafe
+public Optional<String> maybeFail() throws RuntimeException {
+  throw new RuntimeException("Failed on purpose");
+}
+
+}
+```
 
 ```java
 @Named

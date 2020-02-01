@@ -13,6 +13,9 @@ import static java.lang.annotation.ElementType.TYPE;
 /**
  * Binds {@link SemisafeInterceptor} to a specific method or to each and every public-declared method when placed on top
  * of a CDI bean.
+ * <p>
+ * The underlying interceptor lets through every Throwable declared as a value inside this annotation interface, or
+ * any throwable declared directly by the method itself.
  *
  * @author Pavel Pscheidl
  */
@@ -27,5 +30,5 @@ public @interface Semisafe {
      * not trigger the failsafe process.
      */
     @Nonbinding
-    Class<? extends Throwable>[] value();
+    Class<? extends Throwable>[] value() default {};
 }

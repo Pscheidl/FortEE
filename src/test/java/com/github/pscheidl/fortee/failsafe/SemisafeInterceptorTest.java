@@ -47,6 +47,12 @@ public class SemisafeInterceptorTest {
     }
 
     @Test
+    public void testLetThroughDeclaration() {
+        expectedException.expect(AssertionError.class);
+        semiGuardedBean.letThroughDeclaration();
+    }
+
+    @Test
     public void testNotLetThrough() {
         final Optional<String> optionalReturnValue = semiGuardedBean.doNotLetThrough();
         Assert.assertNotNull(optionalReturnValue);

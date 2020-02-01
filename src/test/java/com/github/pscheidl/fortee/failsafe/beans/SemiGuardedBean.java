@@ -16,6 +16,11 @@ public class SemiGuardedBean {
         throw new AssertionError();
     }
 
+    @Semisafe
+    public Optional<String> letThroughDeclaration() throws AssertionError {
+        throw new AssertionError();
+    }
+
     @Semisafe({AssertionError.class})
     public Optional<String> letInheritedThrough() {
         throw new AssertionFailedError();
@@ -26,12 +31,12 @@ public class SemiGuardedBean {
         throw new ClassFormatError();
     }
 
-    @Semisafe({})
+    @Semisafe
     public Optional<String> returnNull() {
         return null;
     }
 
-    @Semisafe({})
+    @Semisafe
     public Optional<String> returnSomething() {
         return Optional.of("Something");
     }
@@ -41,7 +46,7 @@ public class SemiGuardedBean {
         return ExceptionUtils.rethrow(new IOException());
     }
 
-    @Semisafe({})
+    @Semisafe
     public Optional<String> convertSilentException() {
         return ExceptionUtils.rethrow(new IOException());
     }
