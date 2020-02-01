@@ -27,7 +27,7 @@ class SemisafeInterceptor extends FailsafeInterceptor implements Serializable {
      * @return Value returned by the underlying method call. Empty optional in case of an exception.
      */
     @AroundInvoke
-    public Object filter(InvocationContext invocationContext) throws Throwable {
+    public Object filter(final InvocationContext invocationContext) throws Throwable {
         try {
             final Object returnedObject = invocationContext.proceed();
 
@@ -36,7 +36,7 @@ class SemisafeInterceptor extends FailsafeInterceptor implements Serializable {
             }
             return returnedObject;
         } catch (Throwable throwable) {
-            if (isIgnoredThrowable(throwable, invocationContext.getMethod())) {
+            if (isIgnoredThrowable(throwable.getClass(), invocationContext.getMethod())) {
                 throw throwable;
             }
             super.throwExecutionErrorEvent(invocationContext, throwable);
@@ -45,23 +45,28 @@ class SemisafeInterceptor extends FailsafeInterceptor implements Serializable {
     }
 
     /**
-     * @param throwable Intercepted {@link Throwable}
-     * @param method    Intercepted {@link Method}
+     * @param throwableClass Intercepted {@link Throwable}
+     * @param method         Intercepted {@link Method}
      * @return True if {@link Throwable} instance is among throwables to be ignored
      */
-    private boolean isIgnoredThrowable(Throwable throwable, Method method) {
+    private boolean isIgnoredThrowable(final Class<? extends Throwable> throwableClass, final Method method) {
         Semisafe methodAnnotation = method.getAnnotation(Semisafe.class);
 
         if (methodAnnotation == null) {
             methodAnnotation = method.getDeclaringClass().getAnnotation(Semisafe.class);
         }
 
-        for (Class throwableClass : methodAnnotation.value()) {
-            if (throwableClass.isAssignableFrom(throwable.getClass())) {
+        for (final Class letThroughClass : methodAnnotation.value()) {
+            if (letThroughClass.isAssignableFrom(throwableClass)) {
                 return true;
             }
         }
 
+        for (Class<?> declaredException : method.getExceptionTypes()) {
+            if (throwableClass.isAssignableFrom(declaredException)) {
+                return true;
+            }
+        }
         return false;
     }
 }
