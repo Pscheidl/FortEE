@@ -5,7 +5,7 @@
 
     <container qualifier="wildfly" default="true">
         <configuration>
-            <property name="jbossHome">${jbossHome:target/wildfly-17.0.1.Final}</property>
+            <property name="jbossHome">${jbossHome:target/wildfly-20.0.0.Final}</property>
             <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
