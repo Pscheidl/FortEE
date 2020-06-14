@@ -28,6 +28,7 @@ public @interface Semisafe {
     /**
      * Classes extending {@link Throwable} being ignored in the failsafe process. Such throwables are re-thrown and do
      * not trigger the failsafe process.
+     * @return Ignored exceptions
      */
     @Nonbinding
     Class<? extends Throwable>[] value() default {};

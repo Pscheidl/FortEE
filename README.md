@@ -16,16 +16,19 @@ FortEE is a Jakarta EE / Java EE fault-tolerance guard leveraging the Optional p
 <dependency>
     <groupId>com.github.pscheidl</groupId>
     <artifactId>fortee</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 ## Gradle
 ```groovy
-compile 'com.github.pscheidl:fortee:1.1.0'
+compile 'com.github.pscheidl:fortee:1.2.0'
 ```
 **Release notes**
-- Released on 17th of December 2017
-- Introduced allowed exceptions with @Semisafe annotation
+- Released on 14th of June 2020
+- The `@Semisafe` annotation ignored exceptions not only listed as a value of that annotation,
+but also exceptions directly specified in the mehod's definition, e.g. `public Optional<String> doSomething() throws UnsupportedOperationException` will let the
+`UnsupportedOperationException` through.
+- Test suite ran against WildFly 20.0.0-Final.
 
 ## How it works ?
 
@@ -60,6 +63,8 @@ public Optional<String> maybeFail() throws RuntimeException {
 
 }
 ```
+
+Alternatively, the exception to be let through can be specified inside the `@Semisafe` annotation.
 
 ```java
 @Named
